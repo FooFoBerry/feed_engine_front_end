@@ -5,4 +5,7 @@ class ProjectsController < ApplicationController
     @user
   end
 
+  def new
+  end
+
 end
