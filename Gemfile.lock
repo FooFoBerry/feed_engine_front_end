@@ -68,6 +68,8 @@ GEM
     factory_girl_rails (4.3.0)
       factory_girl (~> 4.3.0)
       railties (>= 3.0.0)
+    faraday (0.8.8)
+      multipart-post (~> 1.2.0)
     ffi (1.9.3)
     formatador (0.2.4)
     grit (2.5.0)
@@ -118,6 +120,7 @@ GEM
     mini_portile (0.5.2)
     minitest (4.7.5)
     multi_json (1.8.4)
+    multipart-post (1.2.0)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     polyglot (0.3.3)
@@ -228,6 +231,7 @@ DEPENDENCIES
   capybara
   coffee-rails (~> 4.0.0)
   factory_girl_rails
+  faraday
   guard-rspec
   jazz_hands
   jbuilder (~> 1.2)
