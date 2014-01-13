@@ -85,6 +85,8 @@ GEM
     guard-rspec (4.2.3)
       guard (~> 2.1)
       rspec (>= 2.14, < 4.0)
+    haml (4.0.4)
+      tilt
     hike (1.2.3)
     hirb (0.7.1)
     i18n (0.6.9)
@@ -233,6 +235,7 @@ DEPENDENCIES
   factory_girl_rails
   faraday
   guard-rspec
+  haml
   jazz_hands
   jbuilder (~> 1.2)
   jquery-rails

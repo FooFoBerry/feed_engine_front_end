@@ -1,0 +1,7 @@
+= form_for @project, :url => projects_path do |f|
+  = f.label :name, "Your Project Name"
+  = f.text_field :name
+  = f.label :github_url, "Your GitHub Repo Url"
+  = f.text_field :github_url
+  = f.submit "Create Project"
+
