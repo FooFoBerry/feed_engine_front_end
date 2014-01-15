@@ -9,8 +9,8 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 gem 'faraday'
+gem 'haml'
 gem 'sqlite3'
-gem 'ember-rails'
 
 group :doc do
   gem 'sdoc', require: false
