@@ -11,6 +11,8 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery_ujs
-//= require turbolinks
-// require_tree .
+//= require handlebars
+//= require ember
+//= require ember-data
+//= require 'ember-pusher.min'
+//= require 'md5'
