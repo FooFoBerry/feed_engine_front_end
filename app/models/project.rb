@@ -16,11 +16,15 @@ class Project
   end
 
   def self.all_for(user_id)
-    project_api.projects_for(user_id)
+    project_store_api.projects_for(user_id)
   end
 
   def valid?
     valid
+  end
+
+  def self.project_store_api
+    foofo_api::ProjectStore.new
   end
 
   def self.project_api

@@ -23,6 +23,7 @@ feature "Projects Admin Page" do
   end
 
   scenario "when an auth user creates a project" do
+    # :TODO: VCR
     visit new_project_path
     repo_url = "http://github.com/foofoberry/FeedEngine_apis"
     fill_in "Your Project Name", :with => "FooFoBerry Project"
