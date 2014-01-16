@@ -15,6 +15,10 @@ class Project
     @valid      = data[:valid]
   end
 
+  def self.all
+
+  end
+
   def valid?
     valid
   end

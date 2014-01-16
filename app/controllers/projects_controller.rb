@@ -1,8 +1,8 @@
 class ProjectsController < ApplicationController
 
   def index
-    #@user = User.find_by(id: cookies[:user_id])
     @user = current_user_id
+    @projects = Project.all
   end
 
   def new
