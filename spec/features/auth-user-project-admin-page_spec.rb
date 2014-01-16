@@ -3,8 +3,8 @@ require 'spec_helper'
 feature "Projects Admin Page" do
 
   before :each do
-    u = User.new({ :name => "Tyler Long" })
-    User.stub(:find_by).and_return(u)
+    #u = User.new({ :name => "Tyler Long" })
+    #User.stub(:find_by).and_return(u)
     page.driver.browser.set_cookie 'user_id=1'
   end
 
