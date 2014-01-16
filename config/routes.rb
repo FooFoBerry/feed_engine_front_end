@@ -1,4 +1,6 @@
 FeedEngineFrontEnd::Application.routes.draw do
-  root "projects#index"
-  resources :projects
+  scope :dashboard do
+    root "projects#index"
+    resources :projects
+  end
 end
