@@ -23,15 +23,13 @@ feature "Projects Admin Page" do
   end
 
   scenario "when an auth user creates a project" do
-    pending
     visit new_project_path
     repo_url = "http://github.com/foofoberry/FeedEngine_apis"
     fill_in "Your Project Name", :with => "FooFoBerry Project"
-    fill_in "Your GitHub Repo Url", :with => repo_url
     click_on "Create Project"
 
     expect(page.current_path).to eq root_path
-    expect(page).to have_content "Successfully Created Project FooFoBerry"
+    expect(page).to have_content "Successfully Created Project"
     expect(page).to have_content "FooFoBerry Project"
   end
 end

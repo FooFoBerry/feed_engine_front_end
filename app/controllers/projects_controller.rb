@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
 
   def index
     #@user = User.find_by(id: cookies[:user_id])
-    @user = cookies[:user_id]
+    @user = current_user_id
   end
 
   def new
@@ -10,7 +10,8 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    status, @project = Project.create(params[:project])
+    project_params = params[:project].merge(:user_id => current_user_id)
+    status, @project = Project.create(project_params)
     if status == 201
       flash[:notice] = "Successfully Created Project #{@project.name}"
       redirect_to root_path
