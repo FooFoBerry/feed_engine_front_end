@@ -1,0 +1,49 @@
+body {
+  background: #fafafa;
+}
+
+.row {
+  max-width: 650px;
+}
+
+.header {
+  margin: 0 auto;
+  border-top: solid 10px #222;
+  border-bottom: solid 10px #222;
+  max-width: 650px;
+  overflow: hidden;
+  position: relative;
+  margin-bottom: 20px;
+
+  h1 {
+    float: left;
+    font-size: 25px;
+    height: 25px;
+  }
+  .user {
+    float: right;
+    .avatar {
+      img {
+        padding-top: 2px;
+        width: 50px;
+        margin: 0;
+      }
+    }
+  }
+  .actions {
+    display: none;
+    bottom: 0;
+    position: absolute;
+  }
+}
+
+.center {
+  text-align: center;
+}
+
+.button {
+  background: #fff;
+  border-radius: 5px;
+  border: solid 1px #ddd;
+  padding: 15px 25px;
+}
