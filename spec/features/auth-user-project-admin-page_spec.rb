@@ -27,7 +27,6 @@ feature "Projects Admin Page" do
   end
 
   scenario "when an auth user creates a project" do
-    # :TODO: VCR
     VCR.use_cassette "create_project" do
       visit new_project_path
       repo_url = "http://github.com/foofoberry/FeedEngine_apis"
