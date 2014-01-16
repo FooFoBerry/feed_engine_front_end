@@ -15,8 +15,8 @@ class Project
     @valid      = data[:valid]
   end
 
-  def self.all
-
+  def self.all_for(user_id)
+    project_api.projects_for(user_id)
   end
 
   def valid?
