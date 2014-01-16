@@ -5,8 +5,8 @@ class Project
   attr_accessor :name, :github_url, :valid
 
   def self.create(attributes = {})
-    project_data = FooFoBerry.create_project_from(attributes)
-    new(project_data)
+    status, project_data = project_api.create_with({ :project => attributes })
+    [status, new(project_data)]
   end
 
   def initialize(data = {})
@@ -15,17 +15,24 @@ class Project
     @valid      = data[:valid]
   end
 
+  def self.all_for(user_id)
+    project_store_api.projects_for(user_id)
+  end
+
   def valid?
     valid
   end
-end
 
-class FooFoBerry
-  def self.create_project_from(attributes)
-    {
-      :name => "FooFoBerry",
-      :github_url => "http://github.com/foofoberry/foofoberry_api",
-      :valid => true
-    }
+  def self.project_store_api
+    foofo_api::ProjectStore.new
   end
+
+  def self.project_api
+    foofo_api::Project.new
+  end
+
+  def self.foofo_api
+    FooFoBerry
+  end
+
 end
