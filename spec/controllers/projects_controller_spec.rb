@@ -8,6 +8,6 @@ describe ProjectsController do
     # :TODO: NEEDS VCR
 
     post :create, params
-    expect(response.status).to eq(302)
+    expect(response.status).to eq(200)
   end
 end
