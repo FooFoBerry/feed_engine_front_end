@@ -11,6 +11,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'faraday'
 gem 'haml'
 gem 'sqlite3'
+gem 'foofoberry', :git => 'git://github.com/FooFoBerry/foofoberry.git'
 
 group :doc do
   gem 'sdoc', require: false

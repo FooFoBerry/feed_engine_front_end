@@ -1,8 +1,8 @@
 class ProjectsController < ApplicationController
 
   def index
-    @user = User.find_by(id: cookies[:user_id])
-    @user
+    #@user = User.find_by(id: cookies[:user_id])
+    @user = cookies[:user_id]
   end
 
   def new
@@ -10,13 +10,13 @@ class ProjectsController < ApplicationController
   end
 
   def create
-    @project = Project.create(params[:project])
-    if @project.valid?
+    status, @project = Project.create(params[:project])
+    if status == 201
       flash[:notice] = "Successfully Created Project #{@project.name}"
       redirect_to root_path
     else
       flash[:notice] = "Something went wrong!"
-      render new
+      render :new
     end
   end
 

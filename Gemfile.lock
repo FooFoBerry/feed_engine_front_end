@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/FooFoBerry/foofoberry.git
+  revision: ebda336d5a4ba9113e2b918c3db68689ee966a51
+  specs:
+    foofoberry (0.0.4)
+      faraday
+      json
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -68,7 +76,7 @@ GEM
     factory_girl_rails (4.3.0)
       factory_girl (~> 4.3.0)
       railties (>= 3.0.0)
-    faraday (0.8.8)
+    faraday (0.8.9)
       multipart-post (~> 1.2.0)
     ffi (1.9.3)
     formatador (0.2.4)
@@ -234,6 +242,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   factory_girl_rails
   faraday
+  foofoberry!
   guard-rspec
   haml
   jazz_hands
