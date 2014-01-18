@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
 
   def index
     @user = current_user_id
-    @projects = Project.all_for(current_user_id)[1]
+    @projects = Project.all_for(current_user_id)
   end
 
   def new

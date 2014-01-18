@@ -16,7 +16,7 @@ class Project
   end
 
   def self.all_for(user_id)
-    project_store_api.projects_for(user_id)
+    project_store_api.projects_for(user_id)[1]
   end
 
   def valid?
