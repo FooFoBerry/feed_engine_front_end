@@ -2,7 +2,7 @@ class Project
   extend ActiveModel::Naming
   include ActiveModel::Conversion
 
-  attr_accessor :name, :github_url, :valid
+  attr_accessor :id, :name, :github_url, :valid, :user_id
 
   def self.create(attributes = {})
     status, project_data = project_api.create_with({ :project => attributes })
@@ -10,9 +10,10 @@ class Project
   end
 
   def initialize(data = {})
-    @name       = data[:name]
-    @github_url = data[:github_url]
-    @valid      = data[:valid]
+    @id         = data["id"]
+    @name       = data["name"]
+    @github_url = data["github_url"]
+    @valid      = data["valid"]
   end
 
   def self.all_for(user_id)

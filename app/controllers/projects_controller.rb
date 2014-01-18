@@ -13,9 +13,9 @@ class ProjectsController < ApplicationController
     project_params = params[:project].merge(:user_id => current_user_id)
     status, @project = Project.create(project_params)
     if status == 201
-      binding.pry
       render :json => @project.to_json
     else
+      render :json => "BROKEN"
       #flash[:notice] = "Something went wrong!"
       #render :new
     end
