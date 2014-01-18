@@ -13,11 +13,11 @@ class ProjectsController < ApplicationController
     project_params = params[:project].merge(:user_id => current_user_id)
     status, @project = Project.create(project_params)
     if status == 201
-      flash[:notice] = "Successfully Created Project #{@project.name}"
-      redirect_to root_path
+      binding.pry
+      render :json => @project.to_json
     else
-      flash[:notice] = "Something went wrong!"
-      render :new
+      #flash[:notice] = "Something went wrong!"
+      #render :new
     end
   end
 

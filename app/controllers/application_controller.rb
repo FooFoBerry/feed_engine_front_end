@@ -1,7 +1,5 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
-
-  helper_method :url_for
+  #protect_from_forgery with: :exception
 
   def current_user_id
     @user_id ||= cookies[:user_id]
