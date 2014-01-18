@@ -53,7 +53,8 @@ App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
   notifications: [],
   users: [],
   PUSHER_SUBSCRIPTIONS: {
-    activity_channel: ['new_idea']
+    activity_channel: ['new_idea'],
+    github_notification: ['new_notification']
   },
   createNotification: function(data) {
     this.store.createRecord('GHNotification', { name: "Nathaniel", email: "asdf"});
