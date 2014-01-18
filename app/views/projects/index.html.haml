@@ -1,201 +1,63 @@
-- if @projects
+#perspective.perspective.effect-airbnb
+  .container
+    .wrapper
+      %header.codrops-header
+        %h1
+          FooFoBerry
+          %span
+            Hello, thewatts.
+            %a{ :href => "#" } Logout
+      .main.clearfix
+        .column
+          %nav.codrops-demos.project-list
+            - unless @projects.empty?
+              %ul
+                = render :partial => 'projects/project', 
+                  :collection => @projects, :as => :project
+            - else
+              %h3.no-projects
+                You don't have any projects yet.
+                %br
+                You should make one!
+                
+        .column
+          %p
+            %button#showMenu
+              New Project
 
-  %ul.projects
-  - @projects.each do |project|
-    %li
-      = project
-  %a.button{ :href => new_project_path }
-    Add Another Project
+  .outer-nav.left.vertical
+    .project-wrap.content-wrap
+      %h2
+        Name your Project
+      %form.create-project
+        %input{ :type => "text", :placeholder => "your project name..." }
+        %button.submit-create-project.ladda-button{:data => {:style => "expand-left"}}
+          %span.ladda-label
+            Create Project
+          %span.ladda-spinner
 
-- else
-  .row.center
-    .twelve.columns
-      %a.button{ :href => new_project_path }
-        Create Your First Project
-%h1
-  = @user.inspect
-
-%a{ :href => new_project_path }
-  Create Your First Project
-
-%div
-  = render partial: 'projects/project', collection: @projects, as: :project
-
-
-<div id="perspective" class="perspective effect-airbnb">
-      <div class="container">
-        <div class="wrapper"><!-- wrapper needed for scroll -->
-          <!-- Top Navigation -->
-          <header class="codrops-header">
-            <h1>Foo Fo Berry<span>Hello, thewatts. <a href="#">logout</a></span></h1>
-          </header>
-          <div class="main clearfix">
-            <div class="column">
-              <nav class="codrops-demos project-list">
-                <li>
-                  <div>
-                    <span class="name">Airbnb Effect</span>
-                    <div class="actions">
-                      <a href="#" class="settings">
-                        <img src="cog.png">
-                      </a>
-                      <a href="#" class="display">
-                        <img src="publish.png">
-                      </a>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div>
-                    <span class="name">Airbnb Effect</span>
-                    <div class="actions">
-                      <a href="#" class="settings">
-                        <img src="cog.png">
-                      </a>
-                      <a href="#" class="display">
-                        <img src="publish.png">
-                      </a>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div>
-                    <span class="name">Airbnb Effect</span>
-                    <div class="actions">
-                      <a href="#" class="settings">
-                        <img src="cog.png">
-                      </a>
-                      <a href="#" class="display">
-                        <img src="publish.png">
-                      </a>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div>
-                    <span class="name">Airbnb Effect</span>
-                    <div class="actions">
-                      <a href="#" class="settings">
-                        <img src="cog.png">
-                      </a>
-                      <a href="#" class="display">
-                        <img src="publish.png">
-                      </a>
-                    </div>
-                  </div>
-                </li>
-                <li>
-                  <div>
-                    <span class="name">Airbnb Effect</span>
-                    <div class="actions">
-                      <a href="#" class="settings">
-                        <img src="cog.png">
-                      </a>
-                      <a href="#" class="display">
-                        <img src="publish.png">
-                      </a>
-                    </div>
-                  </div>
-                </li>
-              </nav>
-            </div>
-            <div class="column">
-              <p><button id="showMenu">New Project</button></p>
-            </div>
-          </div><!-- /main -->
-        </div><!-- wrapper -->
-      </div><!-- /container -->
-      <div class="outer-nav left vertical">
-
-        <div class="project-wrap content-wrap">
-          <h2>Name your Project</h2>
-          <form class="create-project">
-            <input type="text" placeholder="your project name...">
-            <button class="submit-create-project ladda-button" data-style="expand-left">
-              <span class="ladda-label">Create Project</span>
-              <span class="ladda-spinner"></span>
-            </button>
-          </form>
-        </div>
-
-        <div class="service-wrap content-wrap">
-          <h2>Foo Fo Berry</h2>
-          <div class="tracker service">
-            <h4>Pivotal Tracker</h4>
-          </div>
-          <div class="github service">
-            <h4>GitHub</h4>
-            <div class="github-form service-form">
-              <form>
-                <input type="text" placeholder="GitHub Repo Url">
-                <button class="submit-add-repo ladda-button" data-style="expand-left">
-                  <span class="ladda-label">Add Repo</span>
-                  <span class="ladda-spinner"></span>
-                </button>
-              </form>
-            </div>
-          </div>
-          <div class="travis service">
-            <h4>Travis CI</h4>
-          </div>
-          <div class="code-climate service">
-            <h4>Code Climate</h4>
-          </div>
-          <div>
-            <button>Finish</button>
-          </div>
-        </div>
-      </div>
-    </div><!-- /perspective -->
-    <script src="js/classie.js"></script>
-    <script src="js/menu.js"></script>
-    <script src="js/spin.js"></script>
-    <script src="js/ladda.js"></script>
-    <script src="http://code.jquery.com/jquery-1.10.1.min.js"></script>
-    <script>
-      $('.create-project .ladda-button').on('click', function(event) {
-        event.preventDefault();
-      });
-
-      $('.service h4').on('click', function() {
-        $(this).parent().children('.service-form').slideToggle();
-      });
-    </script>
-    <script>
-
-      // Bind normal buttons
-      //Ladda.bind( '.ladda-button', { timeout: 5000 } );
-
-      // Bind progress buttons and simulate loading progress
-      Ladda.bind( '.ladda-button', {
-        callback: function( instance ) {
-          var label = $('.ladda-button.submit-create-project .ladda-label');
-          var progress = 0;
-          var interval = setInterval( function() {
-            progress = Math.min( progress + Math.random() * 0.1, 1 );
-            instance.setProgress( progress );
-
-            if( progress === 1 ) {
-              instance.stop();
-              clearInterval( interval );
-              label.html('Success!').delay(2000).delay(200, function() {
-                $('.project-wrap').fadeOut(500, function() {
-                  $('.service-wrap').fadeIn(500);
-                });
-              });
-            }
-          }, 200 );
-        }
-      } );
-
-      // You can control loading explicitly using the JavaScript API
-      // as outlined below:
-
-      // var l = Ladda.create( document.querySelector( 'button' ) );
-      // l.start();
-      // l.stop();
-      // l.toggle();
-      // l.isLoading();
-      // l.setProgress( 0-1 );
-
-    </script>
+    .service-wrap.content-wrap
+      %h2
+        Foo Fo Berry
+      .tracker.service
+        %h4
+          Pivotal Tracker
+      .github.service
+        %h4
+          GitHub
+        .github-form.service-form
+          %form
+            %input{ :type => "text", :placeholder => "GitHub Repo Url" }
+            %button.submit-add-repo.ladda-button{:data => {:style => "expand-left"}}
+              %span.ladda-label
+                Add Repo
+              %span.ladda-spinner
+      .travis.service
+        %h4
+          Travis Ci
+      .code-climate.service
+        %h4
+          Code Climate
+      %div
+        %button
+          Finish

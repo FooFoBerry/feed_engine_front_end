@@ -5,22 +5,7 @@
       = "#{@title} | " if @title
       FooFoBerry Dashboard
     = stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true
-    = javascript_include_tag "application", "data-turbolinks-track" => true
     = csrf_meta_tags
   %body
-    .row
-      .header
-        %h1 FooFoBerry
-        - if @user
-          .user
-            .avatar
-              %img{ }#@user.avatar }
-          .actions
-            %a{ :href => "#" } Logout
-
-    - if flash[:notice]
-      .flash
-        = flash[:notice]
-
-    .row
-      = yield
+    = yield
+    = javascript_include_tag "application", "data-turbolinks-track" => true

@@ -13,4 +13,10 @@
 //= require jquery
 //= require jquery_ujs
 //= require turbolinks
+//= require 'modernizr'
+//= require 'classie'
+//= require 'menu'
+//= require 'spin'
+//= require 'ladda'
+//= require 'scripts'
 // require_tree .

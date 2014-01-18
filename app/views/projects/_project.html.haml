@@ -1,2 +1,9 @@
 %li
-  = project["name"]
+  .div
+    %span.name 
+      = project['name']
+    .actions
+      %a.settings{ :href => "#" }
+        = image_tag "cog.png"
+      %a.display{ :href => "#" }
+        = image_tag "publish.png"
