@@ -1,0 +1,106 @@
+<div id="perspective" class="perspective effect-airbnb">
+  <div class="container">
+    <div class="wrapper"><!-- wrapper needed for scroll -->
+      <!-- Top Navigation -->
+      <header class="codrops-header">
+        <h1>
+          FooFoBerry
+          <span>Hello, thewatts. <a href="#">logout</a></span>
+        </h1>
+      </header>
+      <div class="main clearfix">
+        <div class="column">
+          <nav class="codrops-demos project-list">
+            <ul>
+            <% unless @projects.empty? %>
+                <%= render :partial => 'projects/project',
+                           :collection => @projects, :as => :project %>
+            <% else %>
+              <li class="no-projects">
+                <h3>
+                  You don't have any projects yet.<br>
+                  You should make one!
+                </h3>
+              </li>
+            <% end %>
+            </ul>
+          </nav>
+        </div>
+        <div class="column">
+          <p><button id="showMenu">New Project</button></p>
+        </div>
+      </div><!-- /main -->
+    </div><!-- wrapper -->
+  </div><!-- /container -->
+
+  <div class="outer-nav left vertical">
+
+    <div class="project-wrap content-wrap">
+      <h2>Name your Project</h2>
+      <form class="create-project">
+        <input type="text" placeholder="your project name...">
+        <button class="submit-create-project ladda-button" data-style="expand-left">
+          <span class="ladda-label">Create Project</span>
+          <span class="ladda-spinner"></span>
+        </button>
+      </form>
+    </div>
+
+    <div class="services">
+      <%= render :partial => 'projects/service',
+                 :collection => @projects, :as => :project %>
+    </div>
+
+  </div>
+  <a href="#" id="cancel">
+    x 
+  </a>
+</div><!-- /perspective -->
+
+<script type="text/html" id="project-template">
+  <li class="project" id="project-{{id}}">
+    <div>
+      <span class="name">
+        {{name}}
+      </span>
+      <div class="actions">
+        <a href="#" class="settings">
+          <%= image_tag "cog.png" %>
+        </a>
+        <a href="#" class="display">
+          <%= image_tag "publish.png" %>
+        </a>
+      </div>
+    </div>
+  </li>
+</script>
+
+<script type="text/html" id="service-template">
+  <div class="service-wrap content-wrap" id="project-{{id}}-services">
+    <h2>{{name}}</h2>
+    <div class="tracker service">
+      <h4>Pivotal Tracker</h4>
+    </div>
+    <div class="github service">
+      <h4>GitHub</h4>
+      <div class="github-form service-form">
+        <form>
+          <input type="text" placeholder="GitHub Repo Url">
+          <button class="submit-add-repo ladda-button" data-style="expand-left">
+            <span class="ladda-label">Add Repo</span>
+            <span class="ladda-spinner"></span>
+          </button>
+        </form>
+      </div>
+    </div>
+    <div class="travis service">
+      <h4>Travis CI</h4>
+    </div>
+    <div class="code-climate service">
+      <h4>Code Climate</h4>
+    </div>
+    <div>
+      <button class="finish">Finish</button>
+    </div>
+  </div>
+</script>

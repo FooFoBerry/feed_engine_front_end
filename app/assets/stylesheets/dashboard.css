@@ -9,9 +9,6 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require_self
- *= require 'normalize'
- *= require 'demo'
- *= require 'ladda.min'
- *= require 'components'
- *= require 'styles'
+ *= require "foundation.min"
+ *= require "display"
  */

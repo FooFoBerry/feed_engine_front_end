@@ -13,6 +13,8 @@ gem 'haml'
 gem 'sqlite3'
 gem 'foofoberry', :git => 'git://github.com/FooFoBerry/foofoberry.git'
 
+gem 'mustache'
+
 group :doc do
   gem 'sdoc', require: false
 end
@@ -27,4 +29,5 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'vcr'
   gem 'fakeweb'
+  gem 'poltergeist'
 end

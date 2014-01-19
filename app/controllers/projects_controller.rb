@@ -2,7 +2,7 @@ class ProjectsController < ApplicationController
 
   def index
     @user = current_user_id
-    @projects = Project.all_for(current_user_id)[1]
+    @projects = Project.all_for(current_user_id)
   end
 
   def new
@@ -13,11 +13,11 @@ class ProjectsController < ApplicationController
     project_params = params[:project].merge(:user_id => current_user_id)
     status, @project = Project.create(project_params)
     if status == 201
-      flash[:notice] = "Successfully Created Project #{@project.name}"
-      redirect_to root_path
+      render :json => @project.to_json
     else
-      flash[:notice] = "Something went wrong!"
-      render :new
+      render :json => "BROKEN"
+      #flash[:notice] = "Something went wrong!"
+      #render :new
     end
   end
 

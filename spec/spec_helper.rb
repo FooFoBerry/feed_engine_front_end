@@ -3,6 +3,8 @@ ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
 require 'rspec/autorun'
+require 'capybara/poltergeist'
+
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
@@ -40,3 +42,12 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 end
+
+#VCR.configure do |c|
+#  c.ignore_request do |request|
+#    URI(request.uri).port == 55555
+#  end
+#end
+
+#Capybara.javascript_driver = :poltergeist
+#Capybara.server_port = 55555

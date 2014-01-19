@@ -1,0 +1,28 @@
+<div class="service-wrap content-wrap" 
+     id='<%= "project-#{project['id']}-services" %>'>
+  <h2><%= project['name'] %></h2>
+  <div class="tracker service">
+    <h4>Pivotal Tracker</h4>
+  </div>
+  <div class="github service">
+    <h4>GitHub</h4>
+    <div class="github-form service-form">
+      <form>
+        <input type="text" placeholder="GitHub Repo Url">
+        <button class="submit-add-repo ladda-button" data-style="expand-left">
+          <span class="ladda-label">Add Repo</span>
+          <span class="ladda-spinner"></span>
+        </button>
+      </form>
+    </div>
+  </div>
+  <div class="travis service">
+    <h4>Travis CI</h4>
+  </div>
+  <div class="code-climate service">
+    <h4>Code Climate</h4>
+  </div>
+  <div>
+    <button class="finish">Finish</button>
+  </div>
+</div>

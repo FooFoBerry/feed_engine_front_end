@@ -1,0 +1,100 @@
+#perspective.perspective.effect-airbnb
+  .container
+    .wrapper
+      %header.codrops-header
+        %h1
+          FooFoBerry
+          %span
+            Hello, thewatts.
+            %a{ :href => "#" } Logout
+      .main.clearfix
+        .column
+          %nav.codrops-demos.project-list
+            - unless @projects.empty?
+              %ul
+                = render :partial => 'projects/project', 
+                  :collection => @projects, :as => :project
+            - else
+              %h3.no-projects
+                You don't have any projects yet.
+                %br
+                You should make one!
+                
+        .column
+          %p
+            %button#showMenu
+              New Project
+
+  .outer-nav.left.vertical
+    .project-wrap.content-wrap
+      %h2
+        Name your Project
+      %form.create-project
+        %input{ :type => "text", :placeholder => "your project name..." }
+        %button.submit-create-project.ladda-button{:data => {:style => "expand-left"}}
+          %span.ladda-label
+            Create Project
+          %span.ladda-spinner
+
+    .service-wrap.content-wrap
+      %h2
+        Foo Fo Berry
+      .tracker.service
+        %h4
+          Pivotal Tracker
+      .github.service
+        %h4
+          GitHub
+        .github-form.service-form
+          %form
+            %input{ :type => "text", :placeholder => "GitHub Repo Url" }
+            %button.submit-add-repo.ladda-button{:data => {:style => "expand-left"}}
+              %span.ladda-label
+                Add Repo
+              %span.ladda-spinner
+      .travis.service
+        %h4
+          Travis Ci
+      .code-climate.service
+        %h4
+          Code Climate
+      %div
+        %button
+          Finish
+
+%script#project_template{type: "text/html"}
+  %li.project
+    %div
+      %span.name
+        {{name}}
+      .actions
+        %a.settings{:href => ""}
+          = image_tag "cog.png"
+        %a.display{:href => ""}
+          = image_tag "publish.png"
+%script#service_template{type: "text/html"}
+  .service-wrap.content-wrap
+    %h2
+      {{name}}
+    .tracker.service
+      %h4
+        Pivotal Tracker
+    .github.service
+      %h4
+        GitHub
+      .github-form.service-form
+        %form
+          %input{ :type => "text", :placeholder => "GitHub Repo Url" }
+          %button.submit-add-repo.ladda-button{:data => {:style => "expand-left"}}
+            %span.ladda-label
+              Add Repo
+            %span.ladda-spinner
+    .travis.service
+      %h4
+        Travis Ci
+    .code-climate.service
+      %h4
+        Code Climate
+    %div
+      %button
+        Finish

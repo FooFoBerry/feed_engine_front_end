@@ -1,8 +1,0 @@
-%h1
-  = @user.inspect
-
-%a{ :href => new_project_path }
-  Create Your First Project
-
-%div
-  = render partial: 'projects/project', collection: @projects, as: :project
