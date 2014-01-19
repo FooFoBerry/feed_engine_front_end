@@ -61,3 +61,40 @@
       %div
         %button
           Finish
+
+%script#project_template{type: "text/html"}
+  %li.project
+    %div
+      %span.name
+        {{name}}
+      .actions
+        %a.settings{:href => ""}
+          = image_tag "cog.png"
+        %a.display{:href => ""}
+          = image_tag "publish.png"
+%script#service_template{type: "text/html"}
+  .service-wrap.content-wrap
+    %h2
+      {{name}}
+    .tracker.service
+      %h4
+        Pivotal Tracker
+    .github.service
+      %h4
+        GitHub
+      .github-form.service-form
+        %form
+          %input{ :type => "text", :placeholder => "GitHub Repo Url" }
+          %button.submit-add-repo.ladda-button{:data => {:style => "expand-left"}}
+            %span.ladda-label
+              Add Repo
+            %span.ladda-spinner
+    .travis.service
+      %h4
+        Travis Ci
+    .code-climate.service
+      %h4
+        Code Climate
+    %div
+      %button
+        Finish

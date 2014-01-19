@@ -1,55 +1,105 @@
-$('.service h4').on('click', function() {
+var perspectiveWrapper =  $('#perspective'),
+    container = perspectiveWrapper.children('.container'),
+    contentWrapper = container.children('.wrapper'),
+    services = $('.services'),
+    body = $('body'),
+    projectForm = $('.project-wrap');
+
+function scrollY() {
+  return window.pageYOffset || docElem.scrollTop;
+}
+
+function resetProjectForm() {
+  $('.submit-create-project').html('Create Project');
+}
+
+body.on('click', '.service h4', function() {
   $(this).parent().children('.service-form').slideToggle();
+});
+
+body.on('click', '.service-wrap .finish', function() {
+  hidePanel();
+});
+
+function showPanel() {
+  perspectiveWrapper.addClass('modalview');
+  document.body.scrollTop = document.documentElement.scrollTop = 0;
+  setTimeout( function() { perspectiveWrapper.addClass('animate'); }, 25 );
+}
+
+function hidePanel() {
+  if (perspectiveWrapper.hasClass('animate')) {
+    perspectiveWrapper.removeClass('modalview');
+    perspectiveWrapper.removeClass('animate');
+    projectForm.fadeOut(500);
+    services.children().fadeOut(500);
+  }
+}
+
+$('#showMenu').on('click', function(event) {
+  event.stopPropagation();
+  event.preventDefault();
+  projectForm.fadeIn(500);
+  showPanel();
+});
+
+$('#cancel').on('click', function(event) {
+  event.stopPropagation();
+  event.preventDefault();
+  hidePanel();
+});
+
+$('.settings').on('click', function(event) {
+  event.preventDefault();
+  var project = $(this).parents('li').attr('id'),
+      services = $('#' + project + '-services');
+  services.fadeIn(500);
+  showPanel();
 });
 
 $('.create-project .submit-create-project').on('click', function(event) {
   event.preventDefault();
   var l = Ladda.create(this),
           that = this,
-          projectName = $('.create-project input').val();
+          noProjects = $('.no-projects'),
+          projectList = $('.project-list ul'),
+          services = $('.services'),
+          serviceTemplate = $('#service-template'),
+          projectTemplate = $('#project-template'),
+          projectWrap = $('.project-wrap'),
+          projectInput = $('.create-project input');
+          projectName = projectInput.val();
 
   if (projectName.length > 0) {
     l.start();
     $.post('/dashboard/projects?project[name]=' + projectName, function( data ) {
-      $('.service-wrap h2').delay(1000).html(data.name).queue(function(next) {
+
+      if (noProjects.length > 0) {
+        noProjects.hide();
+      }
+
+      projectList.append(
+        Mustache.to_html(projectTemplate.html(), data)
+      );
+
+      services.append(
+        Mustache.to_html(serviceTemplate.html(), data)
+      );
+
+      projectInput.val("");
+
+      $(that).delay(2000).queue(function(next) {
         l.stop();
-        $(that).html('Success!').delay(2000).delay(200, function() {
-          $('.project-wrap').fadeOut(500, function() {
-            $('.service-wrap').fadeIn(500);
+        $(that).html('Success!').delay(500).queue(function(next) {
+          projectWrap.fadeOut(500, function() {
+            $('#project-' + data.id + '-services').fadeIn(500);
+            resetProjectForm();
           });
+          next();
         });
+        next();
       });
+
     });
   }
 });
-
-//Ladda.bind( '.ladda-button', {
-//  callback: function( instance ) {
-//    var label = $('.ladda-button.submit-create-project .ladda-label');
-//    var progress = 0;
-//    var interval = setInterval( function() {
-//      progress = Math.min( progress + Math.random() * 0.1, 1 );
-//      instance.setProgress( progress );
-//
-//      if( progress === 1 ) {
-//        instance.stop();
-//        clearInterval( interval );
-//        label.html('Success!').delay(2000).delay(200, function() {
-//          $('.project-wrap').fadeOut(500, function() {
-//            $('.service-wrap').fadeIn(500);
-//          });
-//        });
-//      }
-//    }, 200 );
-//  }
-//} );
-
-// You can control loading explicitly using the JavaScript API
-// as outlined below:
-
-// var l = Ladda.create( document.querySelector( 'button' ) );
-// l.start();
-// l.stop();
-// l.toggle();
-// l.isLoading();
-// l.setProgress( 0-1 );

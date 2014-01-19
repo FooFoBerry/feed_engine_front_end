@@ -43,19 +43,19 @@
       container = perspectiveWrapper.querySelector( '.container' ),
       contentWrapper = container.querySelector( '.wrapper' );
 
-    showMenu.addEventListener( clickevent, function( ev ) {
-      ev.stopPropagation();
-      ev.preventDefault();
-      docscroll = scrollY();
-      // change top of contentWrapper
-      contentWrapper.style.top = docscroll * -1 + 'px';
-      // mac chrome issue:
-      document.body.scrollTop = document.documentElement.scrollTop = 0;
-      // add modalview class
-      classie.add( perspectiveWrapper, 'modalview' );
-      // animate..
-      setTimeout( function() { classie.add( perspectiveWrapper, 'animate' ); }, 25 );
-    });
+    //showMenu.addEventListener( clickevent, function( ev ) {
+    //  ev.stopPropagation();
+    //  ev.preventDefault();
+    //  docscroll = scrollY();
+    //  // change top of contentWrapper
+    //  contentWrapper.style.top = docscroll * -1 + 'px';
+    //  // mac chrome issue:
+    //  document.body.scrollTop = document.documentElement.scrollTop = 0;
+    //  // add modalview class
+    //  classie.add( perspectiveWrapper, 'modalview' );
+    //  // animate..
+    //  setTimeout( function() { classie.add( perspectiveWrapper, 'animate' ); }, 25 );
+    //});
 
     container.addEventListener( clickevent, function( ev ) {
       if( classie.has( perspectiveWrapper, 'animate') ) {
@@ -81,7 +81,7 @@
     perspectiveWrapper.addEventListener( clickevent, function( ev ) { return false; } );
   }
 
-  init();
+  //init();
 
 })();
 

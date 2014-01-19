@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require 'modernizr'
+//= require mustache
 //= require 'classie'
 //= require 'menu'
 //= require 'spin'
