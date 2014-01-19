@@ -67,7 +67,7 @@ $('.create-project .submit-create-project').on('click', function(event) {
           serviceTemplate = $('#service-template'),
           projectTemplate = $('#project-template'),
           projectWrap = $('.project-wrap'),
-          projectInput = $('.create-project input');
+          projectInput = $('.create-project input'),
           projectName = projectInput.val();
 
   if (projectName.length > 0) {
