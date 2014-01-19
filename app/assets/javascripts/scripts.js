@@ -5,16 +5,22 @@ $('.service h4').on('click', function() {
 $('.create-project .submit-create-project').on('click', function(event) {
   event.preventDefault();
   var l = Ladda.create(this),
-      response = false,
-      progress = 0,
-      projectName = $('.create-project input').val();
+          that = this,
+          projectName = $('.create-project input').val();
 
-  l.start();
-
-  $.post('/dashboard/projects?project[name]=' + projectName + '', function( data ) {
-    console.log(data);
-    l.stop();
-  });
+  if (projectName.length > 0) {
+    l.start();
+    $.post('/dashboard/projects?project[name]=' + projectName, function( data ) {
+      $('.service-wrap h2').delay(1000).html(data.name).queue(function(next) {
+        l.stop();
+        $(that).html('Success!').delay(2000).delay(200, function() {
+          $('.project-wrap').fadeOut(500, function() {
+            $('.service-wrap').fadeIn(500);
+          });
+        });
+      });
+    });
+  }
 });
 
 //Ladda.bind( '.ladda-button', {
