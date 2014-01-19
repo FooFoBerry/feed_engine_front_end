@@ -133,6 +133,7 @@ GEM
     minitest (4.7.5)
     multi_json (1.8.4)
     multipart-post (1.2.0)
+    mustache (0.99.5)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
     poltergeist (1.5.0)
@@ -258,6 +259,7 @@ DEPENDENCIES
   jazz_hands
   jbuilder (~> 1.2)
   jquery-rails
+  mustache
   poltergeist
   rails (= 4.0.2)
   rspec-rails
