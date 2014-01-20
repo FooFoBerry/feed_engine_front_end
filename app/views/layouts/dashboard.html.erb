@@ -19,7 +19,7 @@
 
   <script type="text/x-handlebars" id="index">
     <div class="row full">
-      {{github-feed notifications=sortedNotifications}}
+      {{tracker-feed}}
       {{github-feed notifications=sortedNotifications}}
       {{travis-climate-feed}}
     </div>
@@ -50,7 +50,7 @@
   </script>
 
   <script type="text/x-handlebars" id="components/github-notification">
-    <div class="github-notification notification">
+    <div class="github-notification notification hidden">
       <div class="avatar">
         <img src={{gravatarUrl asdf}}>
       </div>

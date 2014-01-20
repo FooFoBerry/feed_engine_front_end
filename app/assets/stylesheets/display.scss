@@ -29,6 +29,10 @@ body {
   position: relative;
 }
 
+.hidden {
+  opacity: 0;
+}
+
 .github-notification {
   border-bottom: solid 6px #162027;
 
@@ -97,4 +101,11 @@ body {
     }
 
   }
+}
+
+.visible {
+  opacity: 1;  /* make things invisible upon start */
+  transition: opacity .5s ease-in-out;
+  -moz-transition: opacity .5s ease-in-out;
+  -webkit-transition: opacity .5s ease-in-out;
 }

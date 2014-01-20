@@ -70,7 +70,17 @@ App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
   }),
   actions: {
     newIdea: function(data) { this.createNotification(data); }
-  }
+  },
+  notificationsUpdated: function() {
+    var notifications = $('.notification.hidden');
+    // we have a new notification
+    console.log(notifications);
+    if (notifications) {
+      $.each(notifications, function(index, notification) {
+        $(notification).addClass('visible').removeClass('hidden'); 
+      });
+    }
+  }.observes('this.notifications.@each')
 });
 
 App.GithubNotificationComponent = Ember.Component.extend({

@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/FooFoBerry/foofoberry.git
-  revision: 00781d7aed8426bd76efa5f7602f837913443b7c
+  revision: 4322b9b5ec92dad758d4a38084de47a0ae09c5ce
   specs:
-    foofoberry (0.0.4)
+    foofoberry (0.0.5)
       faraday
       json
 
@@ -78,15 +78,15 @@ GEM
       factory_girl (~> 4.3.0)
       railties (>= 3.0.0)
     fakeweb (1.3.0)
-    faraday (0.8.9)
-      multipart-post (~> 1.2.0)
+    faraday (0.9.0)
+      multipart-post (>= 1.2, < 3)
     ffi (1.9.3)
     formatador (0.2.4)
     grit (2.5.0)
       diff-lcs (~> 1.1)
       mime-types (~> 1.15)
       posix-spawn (~> 0.3.6)
-    guard (2.2.5)
+    guard (2.3.0)
       formatador (>= 0.2.4)
       listen (~> 2.1)
       lumberjack (~> 1.0)
@@ -132,7 +132,7 @@ GEM
     mini_portile (0.5.2)
     minitest (4.7.5)
     multi_json (1.8.4)
-    multipart-post (1.2.0)
+    multipart-post (2.0.0)
     mustache (0.99.5)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)

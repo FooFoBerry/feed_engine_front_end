@@ -57,6 +57,7 @@ $('.settings').on('click', function(event) {
   showPanel();
 });
 
+// create a project
 $('.create-project .submit-create-project').on('click', function(event) {
   event.preventDefault();
   var l = Ladda.create(this),
@@ -103,3 +104,20 @@ $('.create-project .submit-create-project').on('click', function(event) {
     });
   }
 });
+
+// create a repo
+$('body').on('click', '.submit-add-repo', function(event) {
+  event.preventDefault();
+  var input = $(this).siblings('input'),
+      val = input.val(),
+      l = Ladda.create(this);
+
+  if (val.length > 0) {
+    l.start();
+    $.post('/dashboard/projects?project[name]=' + projectName, function( data ) {
+  }
+
+    
+  console.log( val );
+});
+
