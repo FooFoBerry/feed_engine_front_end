@@ -1,6 +1,6 @@
 class User
-  extend ActiveModel::Naming
-  include ActiveModel::Conversion
+  #extend ActiveModel::Naming
+  #include ActiveModel::Conversion
   attr_reader :name, :avatar
 
   def self.find_by(attributes = {})
