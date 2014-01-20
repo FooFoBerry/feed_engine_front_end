@@ -1,6 +1,6 @@
 class Project
-  extend ActiveModel::Naming
-  include ActiveModel::Conversion
+  #extend ActiveModel::Naming
+  #include ActiveModel::Conversion
 
   attr_accessor :id, :name, :github_url, :valid, :user_id
 
