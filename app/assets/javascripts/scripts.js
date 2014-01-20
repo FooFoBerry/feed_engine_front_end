@@ -114,10 +114,8 @@ $('body').on('click', '.submit-add-repo', function(event) {
 
   if (val.length > 0) {
     l.start();
-    $.post('/dashboard/projects?project[name]=' + projectName, function( data ) {
+    //$.post('/dashboard/projects?project[name]=' + projectName, function( data ) {
   }
-
-    
   console.log( val );
 });
 

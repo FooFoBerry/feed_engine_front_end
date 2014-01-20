@@ -10,7 +10,7 @@ class ReposController < ApplicationController
   end
 
   def repo_params
-    params.permit(:name, :project_id)
+    params.require(:repo).permit(:github_url, :project_id)
   end
 
 end
