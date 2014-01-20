@@ -33,6 +33,13 @@ body {
   opacity: 0;
 }
 
+.visible {
+  opacity: 1;  /* make things invisible upon start */
+  transition: opacity 1s ease-in-out;
+  -moz-transition: opacity 1s ease-in-out;
+  -webkit-transition: opacity 1s ease-in-out;
+}
+
 .github-notification {
   border-bottom: solid 6px #162027;
 
@@ -103,9 +110,3 @@ body {
   }
 }
 
-.visible {
-  opacity: 1;  /* make things invisible upon start */
-  transition: opacity .5s ease-in-out;
-  -moz-transition: opacity .5s ease-in-out;
-  -webkit-transition: opacity .5s ease-in-out;
-}
