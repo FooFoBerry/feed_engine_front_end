@@ -19,7 +19,7 @@
 
   <script type="text/x-handlebars" id="index">
     <div class="row full">
-      {{github-feed notifications=sortedNotifications}}
+      {{tracker-feed}}
       {{github-feed notifications=sortedNotifications}}
       {{travis-climate-feed}}
     </div>
@@ -50,7 +50,7 @@
   </script>
 
   <script type="text/x-handlebars" id="components/github-notification">
-    <div class="github-notification notification">
+    <div class="github-notification notification hidden {{notification.id}}">
       <div class="avatar">
         <img src={{gravatarUrl asdf}}>
       </div>
@@ -60,7 +60,7 @@
             COMMIT
           </span>
           <span class="hash">
-            #45bj7ea
+            #{{notification.commit_hash}}
           </span>
           <div class="code-change">
             <span class="additions">
@@ -72,7 +72,7 @@
           </div>
         </div>
         <div class="description">
-          <p>Add tests to user model</p>
+          <p>{{notification.message}}</p>
         </div>
         <div class="notification-info">
           <span class="timestamp">

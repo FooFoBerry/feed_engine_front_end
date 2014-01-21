@@ -1,31 +1,33 @@
 ---
 http_interactions:
 - request:
-    method: get
-    uri: http://localhost:8080/api/v1/projects?user_id=.json
+    method: post
+    uri: http://localhost:8080/api/v1/projects/1/repos
     body:
-      encoding: US-ASCII
-      string: ''
+      encoding: UTF-8
+      string: '{"repo":{"github_url":"foofoberry/asdf"}}'
     headers:
       user-agent:
       - Faraday v0.9.0
+      content-type:
+      - application/json
       accept-encoding:
       - gzip;q=1.0,deflate;q=0.6,identity;q=0.3
       accept:
       - '*/*'
   response:
     status:
-      code: 200
-      message: 'OK '
+      code: 201
+      message: 'Created '
     headers:
       server:
       - nginx/1.4.4
       date:
-      - Tue, 21 Jan 2014 16:38:40 GMT
+      - Tue, 21 Jan 2014 16:38:41 GMT
       content-type:
       - application/json; charset=utf-8
       content-length:
-      - '2'
+      - '138'
       connection:
       - close
       x-frame-options:
@@ -37,16 +39,16 @@ http_interactions:
       x-ua-compatible:
       - chrome=1
       etag:
-      - '"d751713988987e9331980363e24189ce"'
+      - '"5cebbd60a6861326420fdf312218c361"'
       cache-control:
       - max-age=0, private, must-revalidate
       x-request-id:
-      - 8853bb31-a854-4f80-9664-cb0f3252760e
+      - 3130dff0-3aec-4d9e-877a-cfc605ccfaa1
       x-runtime:
-      - '0.025678'
+      - '0.415068'
     body:
       encoding: UTF-8
-      string: '[]'
+      string: '{"id":41,"github_url":"foofoberry/asdf","created_at":"2014-01-21T16:38:41.252Z","updated_at":"2014-01-21T16:38:41.252Z","gh_repo_id":null}'
     http_version: '1.1'
-  recorded_at: Tue, 21 Jan 2014 16:38:40 GMT
+  recorded_at: Tue, 21 Jan 2014 16:38:41 GMT
 recorded_with: VCR 2.8.0

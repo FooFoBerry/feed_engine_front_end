@@ -5,7 +5,6 @@ describe ProjectsController do
                                  :user_id => "1" } } }
 
   it "creates a project" do
-    #data = { :name => "FooFoBerry Project", :github_url => nil, :valid => nil }
     cookies.signed[:user_id] = 1
     VCR.use_cassette "controller_create_project" do
       post :create, params

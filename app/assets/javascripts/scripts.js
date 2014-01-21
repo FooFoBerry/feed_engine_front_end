@@ -57,6 +57,7 @@ $('.settings').on('click', function(event) {
   showPanel();
 });
 
+// create a project
 $('.create-project .submit-create-project').on('click', function(event) {
   event.preventDefault();
   var l = Ladda.create(this),
@@ -103,3 +104,38 @@ $('.create-project .submit-create-project').on('click', function(event) {
     });
   }
 });
+
+// create a repo
+$('body').on('click', '.submit-add-repo', function(event) {
+  event.preventDefault();
+  var input = $(this).siblings('input'),
+      that = this,
+      project_id = $(this).parents('.service-wrap').attr('id').split('-')[1],
+      github_url = input.val(),
+      post_url = '/dashboard/repos?repo[github_url]=' + github_url + '&repo[project_id]=' + project_id,
+      repos = $('.project-' + project_id + '-repos'),
+      repoTemplate = $('#repo-template'),
+      l = Ladda.create(this);
+
+  console.log(project_id);
+  console.log(github_url);
+  console.log(repos);
+
+  if (github_url.length > 0) {
+    l.start();
+    $.post(post_url, function( data ) {
+
+      $(that).delay(2000).queue(function(next) {
+        l.stop();
+        $(that).html('Success!').delay(500).queue(function(next) {
+          repos.append(
+            Mustache.to_html(repoTemplate.html(), data)
+          );
+          next();
+        });
+        next();
+      });
+    });
+  }
+});
+

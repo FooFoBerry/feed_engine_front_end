@@ -30,6 +30,12 @@ App.Router.map(function() {
   // put your routes here
 });
 
+App.IndexView = Ember.View.extend({
+  didInsertElement: function() {
+    console.log('INSERTED');
+  }
+});
+
 App.IndexRoute = Ember.Route.extend({
   setupController: function(controller, model) {
     controller.set('notifications', model.ghNotifications);
@@ -46,23 +52,11 @@ App.IndexRoute = Ember.Route.extend({
 App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
   notifications: [],
   users: [],
-  project_id: function() {
-    var pieces = window.location.pathname.split('/'),
-        project_id = pieces[ pieces.length -1 ];
-    return project_id;
-  },
-  init: function() {
-    var pieces = window.location.pathname.split('/'),
-        project_id = pieces[ pieces.length -1 ];
-    this.PUSHER_SUBSCRIPTIONS['project_' + project_id] = ['github_notification'];
-    this._super();
-  },
   PUSHER_SUBSCRIPTIONS: {
-    activity_channel: ['new_idea'],
-    github_notification: ['new_notification']
+    activity_channel: ['new_idea']
   },
   createNotification: function(data) {
-    this.store.createRecord('GHNotification', data);
+    this.store.createRecord('GHNotification', { name: "Nathaniel", email: "asdf"});
   },
   sortedNotifications: Ember.computed.sort('notifications', function(a, b) {
     if (a.id > b.id) {
@@ -74,21 +68,8 @@ App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
     return 0;
   }),
   actions: {
-    githubNotification: function(data) { this.createNotification(data.data); },
     newIdea: function(data) { this.createNotification(data); }
-  },
-  notificationsUpdated: function() {
-    Ember.run.next(this, function() {
-      var notifications = $('.notification.hidden');
-      if (notifications) {
-        $.each(notifications, function(index, notification) {
-          setTimeout(function() {
-            $(notification).addClass('visible').removeClass('hidden');
-          }, 1);
-        });
-      }
-    });
-  }.observes('this.notifications.@each')
+  }
 });
 
 App.GithubNotificationComponent = Ember.Component.extend({
@@ -106,10 +87,8 @@ App.GHNotification = DS.Model.extend({
   name         : DS.attr(),
   email        : DS.attr(),
   bio          : DS.attr(),
-  message      : DS.attr(),
   avatarUrl    : DS.attr(),
-  creationDate : DS.attr(),
-  commit_hash  : DS.attr()
+  creationDate : DS.attr()
 });
 
 App.GHNotification.FIXTURES = [
