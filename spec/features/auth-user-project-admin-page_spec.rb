@@ -16,7 +16,7 @@ feature "Projects Admin Page" do
     end
   end
 
-  scenario "when an auth user clicks on create project" do
+  scenario "when an auth user clicks on create project" do 
     pending
     VCR.use_cassette "click_create_project" do
       visit root_url
