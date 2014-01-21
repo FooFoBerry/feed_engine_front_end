@@ -62,6 +62,7 @@ App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
     github_notification: ['new_notification']
   },
   createNotification: function(data) {
+    console.log(data);
     this.store.createRecord('GHNotification', data);
   },
   sortedNotifications: Ember.computed.sort('notifications', function(a, b) {
