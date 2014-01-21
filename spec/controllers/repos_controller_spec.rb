@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe ReposController do
-  let(:params) { { :repo => { :github_url => "foofoberry/costner_goes_postal",
+  let(:params) { { :repo => { :github_url => "foofoberry/asdf",
                               :project_id => 1 } } }
 
   it "creates a repo" do
-    data = { :id => 5, :github_url => "foofoberry/costner_goes_postal",
-              :gh_repo_id => 15883703 }
+    data = { :id => 41, :github_url => "foofoberry/asdf",
+              :gh_repo_id => nil }
     cookies.signed[:user_id] = 1
     VCR.use_cassette "controller_create_repo" do
       post :create, params

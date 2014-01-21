@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-FeedEngineFrontEnd::Application.config.secret_key_base = 'fa1c3e70033fd7c25185a02fdaa3d5234797b70b240b60dd97fb6e659b257f3e47b33dc3c76a333cf970f8e2424e4510970b25a61d0d16de8d86ca3dcfef1e62'
+FeedEngineFrontEnd::Application.config.secret_key_base = 'add7b720d20122b859ae8d3ad0e3561fb27ac39719b554e6524899b5a1f5e0d8a885e0e4ec59a89d081970c789ba45cba65b37236fdb03fd20f7cda8a6f12770'
