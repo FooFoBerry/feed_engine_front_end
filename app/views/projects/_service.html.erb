@@ -6,6 +6,18 @@
   </div>
   <div class="github service">
     <h4>GitHub</h4>
+    <div class='<%= "project-#{project['id']}-repos" %>'>
+      <% project['repos'].each do |repo| %>
+        <div class='repo' id='<%= "#{repo['id']}-repo" %>'>
+          <span class="repo-url">
+            <%= repo['github_url'] %>
+          </span>
+          <a href="#" class="remove">
+            remove
+          </a>
+        </div>
+      <% end %>
+    </div>
     <div class="github-form service-form">
       <form>
         <input type="text" placeholder="GitHub Repo Url">

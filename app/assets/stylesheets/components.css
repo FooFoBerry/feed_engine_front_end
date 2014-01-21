@@ -838,3 +838,30 @@ input {
   font-size: 35px;
   color: #fafafa;
 }
+
+.repos {
+  margin-top: 10px;
+}
+
+.repo {
+  overflow: hidden;
+  font-size: 22px;
+  margin: 5px 0;
+}
+
+.repo .repo-url {
+  float: left;
+  padding-left: 15px;
+}
+
+.repo a {
+  float: right;
+  margin: 0;
+}
+
+.visible {
+  opacity: 1;  /* make things invisible upon start */
+  transition: opacity 1s ease-in-out;
+  -moz-transition: opacity 1s ease-in-out;
+  -webkit-transition: opacity 1s ease-in-out;
+}

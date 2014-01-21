@@ -52,11 +52,18 @@ App.IndexRoute = Ember.Route.extend({
 App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
   notifications: [],
   users: [],
+  project_id: 0,
+  init: function() {
+    var pieces = window.location.pathname.split('/'),
+        project_id = pieces[ pieces.length -1 ];
+    //this.PUSHER_SUBSCRIPTIONS['project_' + project_id] = ['github_notification'];
+  },
   PUSHER_SUBSCRIPTIONS: {
     activity_channel: ['new_idea'],
-    github_notification: ['new_notification']
+    //github_notification: ['project_' + this.project_id]
   },
   createNotification: function(data) {
+    debugger;
     this.store.createRecord('GHNotification', { name: "Nathaniel", email: "asdf"});
   },
   sortedNotifications: Ember.computed.sort('notifications', function(a, b) {
@@ -69,6 +76,7 @@ App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
     return 0;
   }),
   actions: {
+    githubNotification: function(data) { this.createNotification(data); },
     newIdea: function(data) { this.createNotification(data); }
   },
   notificationsUpdated: function() {
@@ -77,7 +85,7 @@ App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
       if (notifications) {
         $.each(notifications, function(index, notification) {
           setTimeout(function() {
-            $(notification).addClass('visible').removeClass('hidden'); 
+            $(notification).addClass('visible').removeClass('hidden');
           }, 1);
         });
       }
