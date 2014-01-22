@@ -26,9 +26,9 @@
 window.count = 3;
 window.pwn = function() {
   App.__container__.lookup('store:main').createRecord('GHNotification', {
-    "id": window.count, 
-    "name":"Nathaniel Watts", 
-    "message":"BOOMSHAKALAKA", 
+    "id": window.count,
+    "name":"Nathaniel Watts",
+    "message":"BOOMSHAKALAKA",
     "email":"simon.taranto@gmail.com",
     "creationDate": Date.now() });
   console.log(window.count);
@@ -92,7 +92,7 @@ App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
     return 0;
   }),
   actions: {
-    githubNotification: function(data) { this.createNotification(data.data.commit); },
+    githubNotification: function(data) { this.createNotification(data.data); },
     newIdea: function(data) { this.createNotification(data); }
   },
 
