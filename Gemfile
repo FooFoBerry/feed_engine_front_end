@@ -30,4 +30,5 @@ group :development, :test do
   gem 'vcr'
   gem 'fakeweb'
   gem 'poltergeist'
+  gem 'coveralls', require: false
 end
