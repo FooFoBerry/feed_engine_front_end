@@ -19,14 +19,17 @@
 
   <script type="text/x-handlebars" id="index">
     <div class="row full">
-      {{tracker-feed}}
-      {{github-feed notifications=sortedNotifications}}
+      {{tracker-feed notifications=sortedTrackerNotifications}}
+      {{github-feed notifications=sortedHubNotifications}}
       {{travis-climate-feed}}
     </div>
   </script>
 
   <script type="text/x-handlebars" id="components/tracker-feed">
     <div class="tracker data-column four columns">
+      {{#each item in notifications}}
+        {{tracker-notification notification=item}}
+      {{/each}}
     </div>
   </script>
 
@@ -56,6 +59,50 @@
   <script type="text/x-handlebars" id="components/time-stamp">
     {{format-time time}}
   </script>
+
+  <script type="text/x-handlebars" id="components/tracker-notification">
+    <div {{bind-attr class="notification.elementId notification.kind :tracker-notification :notification :flat"}}>
+      <div class="notification-wrap hidden">
+        <div class="avatar">
+          <span>{{ notification.initials }}</span>
+        </div>
+        <div class="notification-data">
+          <div class="header">
+            <span class="type">
+              {{ notification.changeType }} {{ notification.kind }}
+            </span>
+            <span class="hash">
+              {{ notification.displayUrl }}
+            </span>
+            <div class="code-change">
+              <span class="additions">
+                {{#if notification.additions}}
+                  +{{ notification.additions }}
+                {{/if}}
+              </span>
+              <span class="subtractions">
+                {{#if notification.subtractions }}
+                  +{{ notification.subtractions }}
+                {{/if}}
+              </span>
+            </div>
+          </div>
+          <div class="description">
+            <p>{{ notification.name }}</p>
+          </div>
+          <div class="notification-info">
+            <span class="timestamp">
+              {{time-stamp time=notification.creationDate}}
+            </span>
+            <span class="user">
+              {{ notification.userName }}
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </script>
+
 
   <script type="text/x-handlebars" id="components/github-notification">
     <div {{bind-attr class="notification.elementId :github-notification :notification :flat"}}>

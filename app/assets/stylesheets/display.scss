@@ -1,4 +1,5 @@
 @import url("http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic|PT+Sans+Narrow:400,700|PT+Sans+Caption:400,700");
+@import url("http://fonts.googleapis.com/css?family=Open+Sans:700italic");
 
 ///
 //font-family: 'PT Sans', sans-serif;
@@ -51,7 +52,41 @@ body {
   -webkit-transition: opacity 2.5s ease-in-out;
 }
 
-.github-notification {
+.tracker-notification.story {
+  background: #252f3a image-url("bg-tracker-story.png") 95% center no-repeat;
+ }
+
+.tracker-notification.bug {
+  background: #252f3a image-url("bg-tracker-bug.png") 95% center no-repeat;
+}
+
+.tracker-notification.chore {
+  background: #252f3a image-url("bg-tracker-chore.png") 95% center no-repeat;
+}
+
+.tracker-notification {
+  .avatar {
+    width: 15%;
+    overflow: hidden;
+    text-align: center;
+    span {
+      font-family: "Open Sans", sans-serif;
+      background: #fafafa;
+      color: #242f3b; 
+      display: block;
+      width: 65px;
+      height: 65px;
+      border-radius: 50em;
+      text-align: center;
+      font-size: 46px;
+      font-style: italic;
+      font-weight: 900;
+      padding-top: 8px;
+    }
+  }
+}
+
+.github-notification, .tracker-notification {
   border-bottom: solid 6px #162027;
 
   .avatar {
@@ -78,6 +113,7 @@ body {
         font-weight: 900;
         font-size: 22px;
         float: left;
+        text-transform: uppercase;
       }
 
       .hash {
