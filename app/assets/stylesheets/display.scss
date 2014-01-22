@@ -29,15 +29,26 @@ body {
   position: relative;
 }
 
+.flat {
+  height: 0;
+}
+
+.full {
+  height: 105px;
+  transition: height 1s ease-in-out;
+  -moz-transition: height 1s ease-in-out;
+  -webkit-transition: height 1s ease-in-out;
+}
+
 .hidden {
   opacity: 0;
 }
 
 .visible {
   opacity: 1;  /* make things invisible upon start */
-  transition: opacity 1s ease-in-out;
-  -moz-transition: opacity 1s ease-in-out;
-  -webkit-transition: opacity 1s ease-in-out;
+  transition: opacity 2.5s ease-in-out;
+  -moz-transition: opacity 2.5s ease-in-out;
+  -webkit-transition: opacity 2.5s ease-in-out;
 }
 
 .github-notification {
@@ -56,14 +67,16 @@ body {
   }
 
   .notification-data {
-    width: 85%;
-    float: left;
+    width: 84%;
+    float: right;
 
     .header {
       margin-top: 5px;
+      overflow: hidden;
+
       .type {
         font-weight: 900;
-        font-size: 20px;
+        font-size: 22px;
         float: left;
       }
 
@@ -75,18 +88,28 @@ body {
         float: left;
         margin-left: 10px;
         margin-top: 0px;
+        font-size: 16px;
       }
 
       .code-change {
         float: right;
         padding-right: 10px;
+        font-size: 16px;
+        .additions {
+          color: #75c785;
+        }
+        .subtractions {
+          color: #fff176;
+        }
       }
     }
 
     .description {
-      clear: both;
-      color: #b4b4b4;
-      font-size: 16px;
+      p {
+        clear: both;
+        color: #b4b4b4;
+        font-size: 18px;
+      }
     }
 
     .notification-info {
@@ -94,15 +117,24 @@ body {
       position: absolute;
       padding-bottom: 0;
       margin-bottom: -10px;
+      font-size: 16px;
       span {
         padding: 0 8px;
       }
       .timestamp {
-        padding-left: 0;
+        background: transparent image-url('clock-icon.png') no-repeat left bottom;
+        padding-left: 22px;
         color: #00b6ef;
         border-right: solid 1px #ccc;
+        float: left;
+        div {
+          font-size: 16px;
+        }
       }
       .user {
+        margin-left: 8px;
+        padding-left: 20px;
+        background: transparent image-url('user-icon.png') no-repeat left 3px;
         color: #ccc;
       }
     }
