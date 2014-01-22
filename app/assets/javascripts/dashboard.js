@@ -92,7 +92,7 @@ App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
     return 0;
   }),
   actions: {
-    githubNotification: function(data) { this.createNotification(data.data); },
+    githubNotification: function(data) { this.createNotification(data.data.commit); },
     newIdea: function(data) { this.createNotification(data); }
   },
 

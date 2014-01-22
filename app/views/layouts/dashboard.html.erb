@@ -73,10 +73,14 @@
             </span>
             <div class="code-change">
               <span class="additions">
-                +54
+                {{#if notification.additions}}
+                  +{{ notification.additions }}
+                {{/if}}
               </span>
               <span class="subtractions">
-                -211
+                {{#if notification.subtractions }}
+                  +{{ notification.subtractions }}
+                {{/if}}
               </span>
             </div>
           </div>
