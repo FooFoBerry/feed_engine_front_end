@@ -49,38 +49,48 @@
     </div>
   </script>
 
+  <script type="text/x-handlebars" id="components/user-avatar">
+    <img {{bind-attr src=avatarUrl alt=email}}>
+  </script>
+
+  <script type="text/x-handlebars" id="components/time-stamp">
+    {{format-time time}}
+  </script>
+
   <script type="text/x-handlebars" id="components/github-notification">
-    <div class="github-notification notification hidden {{notification.id}}">
-      <div class="avatar">
-        <img src={{gravatarUrl asdf}}>
-      </div>
-      <div class="notification-data">
-        <div class="header">
-          <span class="type">
-            COMMIT
-          </span>
-          <span class="hash">
-            #{{notification.commit_hash}}
-          </span>
-          <div class="code-change">
-            <span class="additions">
-              +54
+    <div {{bind-attr class="notification.elementId :github-notification :notification :flat"}}>
+      <div class="notification-wrap hidden">
+        <div class="avatar">
+          {{user-avatar email=notification.email}}
+        </div>
+        <div class="notification-data">
+          <div class="header">
+            <span class="type">
+              COMMIT
             </span>
-            <span class="subtractions">
-              -211
+            <span class="hash">
+              #{{ notification.tinyHash }}
+            </span>
+            <div class="code-change">
+              <span class="additions">
+                +54
+              </span>
+              <span class="subtractions">
+                -211
+              </span>
+            </div>
+          </div>
+          <div class="description">
+            <p>{{ notification.message }}</p>
+          </div>
+          <div class="notification-info">
+            <span class="timestamp">
+              {{time-stamp time=notification.creationDate}}
+            </span>
+            <span class="user">
+              {{ notification.name }}
             </span>
           </div>
-        </div>
-        <div class="description">
-          <p>{{notification.message}}</p>
-        </div>
-        <div class="notification-info">
-          <span class="timestamp">
-            10 minutes ago
-          </span>
-          <span class="user">
-            {{ notification.name }}
-          </span>
         </div>
       </div>
     </div>

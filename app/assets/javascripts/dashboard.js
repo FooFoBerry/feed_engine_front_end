@@ -15,12 +15,25 @@
 // require ember-data
 
 //= require jquery
-//= require 'handlebars'
-//= require 'ember'
-//= require 'ember-data'
-//= require 'ember-pusher.min'
-//= require 'md5'
+//= require handlebars
+//= require ember
+//= require ember-data
+//= require ember-pusher.min
+//= require md5
+//= require moment.min
 //= require_self
+
+window.count = 3;
+window.pwn = function() {
+  App.__container__.lookup('store:main').createRecord('GHNotification', {
+    "id": window.count, 
+    "name":"Nathaniel Watts", 
+    "message":"BOOMSHAKALAKA", 
+    "email":"simon.taranto@gmail.com",
+    "creationDate": Date.now() });
+  console.log(window.count);
+  window.count++;
+};
 
 App = Ember.Application.create({
   PUSHER_OPTS: { key: '3568c8046d9171a5f8ee', connection: {} }
@@ -63,42 +76,54 @@ App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
   },
   createNotification: function(data) {
     console.log(data);
+    data.tinyHash = data.tiny_hash;
+    data.creationDate = data.creation_date;
     this.store.createRecord('GHNotification', data);
   },
   sortedNotifications: Ember.computed.sort('notifications', function(a, b) {
-    if (a.id > b.id) {
+    var firstId = parseInt(a.id, 10),
+        secondId = parseInt(b.id, 10);
+    if (firstId > secondId) {
       return -1;
     }
-    if (a.id < b.id) {
+    if (firstId < secondId) {
       return 1;
     }
     return 0;
   }),
   actions: {
-    githubNotification: function(data) { this.createNotification(data.data); },
+    githubNotification: function(data) { this.createNotification(data.data.commit); },
     newIdea: function(data) { this.createNotification(data); }
   },
+
   notificationsUpdated: function() {
     Ember.run.next(this, function() {
-      var notifications = $('.notification.hidden');
-      if (notifications) {
-        $.each(notifications, function(index, notification) {
+      var flatNotifications = $('.notification.flat');
+      var allNotifications = $('.notification');
+
+      if (flatNotifications) {
+        $.each(flatNotifications, function(index, notification) {
           setTimeout(function() {
-            $(notification).addClass('visible').removeClass('hidden');
+            $(notification).addClass('full').removeClass('flat')
+              .children('.hidden').delay(3000).addClass('visible').removeClass('hidden');
           }, 1);
         });
       }
+      if (allNotifications.length > 9) {
+//        allNotifications.last().fadeOut().remove();
+      }
     });
   }.observes('this.notifications.@each')
+
 });
 
-App.GithubNotificationComponent = Ember.Component.extend({
-  size: 65,
-  gravatarUrl: function() {
-    var size = this.get('size'),
-        email = this.notification.get('email');
-    return 'http://www.gravatar.com/avatar/' + hex_md5(email) + '?s=' + size;
-  }
+App.UserAvatarComponent = Ember.Component.extend({
+  avatarUrl: function() {
+    var email = this.get('email'),
+        hash = hex_md5(email),
+        size = 65;
+    return 'http://www.gravatar.com/avatar/' + hash + '?s=' + size;
+  }.property('email')
 });
 
 App.ApplicationAdapter = DS.FixtureAdapter;
@@ -106,11 +131,35 @@ App.ApplicationAdapter = DS.FixtureAdapter;
 App.GHNotification = DS.Model.extend({
   name         : DS.attr(),
   email        : DS.attr(),
-  bio          : DS.attr(),
   message      : DS.attr(),
-  avatarUrl    : DS.attr(),
   creationDate : DS.attr(),
-  commit_hash  : DS.attr()
+  tinyHash     : DS.attr(),
+  elementId: function() {
+    return "gh-" + this.get('id');
+  }.property('id')
+});
+
+Ember.Handlebars.helper('format-time', function(date) {
+  var time = parseInt(date, 10);
+  return moment( time ).fromNow();
+});
+
+App.TimeStampComponent = Ember.Component.extend({
+
+  startTimer: function () {
+
+    var self = this, currentTime;
+    this._timer = setInterval( function () {
+      currentTime = parseInt(self.get( 'time' ), 10);
+      self.set( 'time', ( currentTime - 60000  ) );
+    }, 60000 );
+
+  }.on( 'didInsertElement' ),
+
+  killTimer: function () {
+    clearInterval( this._timer );
+  }.on( 'willDestroyElement' )
+
 });
 
 App.GHNotification.FIXTURES = [
@@ -118,17 +167,17 @@ App.GHNotification.FIXTURES = [
     id: 1,
     name: 'Tyler Long',
     email: 'tyler.stephen.long@gmail.com',
-    bio: 'The Coolest Cast EVA',
-    avatarUrl: 'https://2.gravatar.com/avatar/4164b853dcf6cad5fae8af49de2e12b5?x&s=400',
-    creationDate: 'Mon, 26 Aug 2013 2013 20:23:43 GMT'
+    message: 'first commit, yo!',
+    tinyHash: '2bn8ic',
+    creationDate: '1390377322000'
   },
   {
     id: 2,
     name: 'Nathaniel Watts',
     email: 'reg@nathanielwatts.com',
-    bio: 'The Coolest DAWG EVA',
-    avatarUrl: 'https://1.gravatar.com/avatar/c12d3710dada4fe5f9abfe4c783ff636?x&s=400',
-    creationDate: 'Mon, 07 Aug 2013 2013 10:23:43 GMT'
+    message: 'gotta love the sunshine!',
+    tinyHash: '2bn8ic',
+    creationDate: '1390377708000'
   }
 ];
 

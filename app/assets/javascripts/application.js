@@ -20,5 +20,5 @@
 //= require 'spin'
 //= require 'ladda'
 //= require 'scripts'
-//= require 'dashboard'
+// require 'dashboard'
 // require_tree .
