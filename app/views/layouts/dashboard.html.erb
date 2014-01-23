@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>Ember Starter Kit</title>
+<title>FooFoBerry!</title>
   <%= stylesheet_link_tag    "dashboard", media: "all" %>
   <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="http://js.pusher.com/2.1/pusher.min.js"></script>
@@ -18,7 +18,7 @@
     <div class="row full">
       {{tracker-feed notifications=sortedTrackerNotifications}}
       {{github-feed notifications=sortedHubNotifications}}
-      {{travis-climate-feed stats=climateStats}}
+      {{travis-climate-feed stats=climateStats status=buildStatus}}
     </div>
     <div class="footer">
       <div class="project-name">
@@ -52,8 +52,11 @@
           </div>
         </div>
       </div>
-      <div class="travis">
-        Travis
+      <div class="travis default">
+        <div class="travis-data">
+          <h3 class="label">Build Status</h3>
+          <h4 class="status">{{ status }}</h4>
+        </div>
       </div>
     </div>
   </script>
@@ -134,7 +137,7 @@
               COMMIT
             </span>
             <span class="hash">
-              #{{ notification.tinyHash }}
+              #{{ notification.tinyHash }} :: {{ notification.repoName }}
             </span>
             <div class="code-change">
               <span class="additions">

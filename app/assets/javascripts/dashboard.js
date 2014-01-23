@@ -75,6 +75,7 @@ App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
   hubNotifications: [],
   trackerNotifications: [],
   climateStats: [],
+  buildStatus: "...",
   project_id: function() {
     var pieces = window.location.pathname.split('/'),
         project_id = pieces[ pieces.length -1 ];
@@ -83,7 +84,11 @@ App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
   init: function() {
     var pieces = window.location.pathname.split('/'),
         project_id = pieces[ pieces.length -1 ];
-    this.PUSHER_SUBSCRIPTIONS['project_' + project_id] = ['github_notification', 'tracker_notification', 'climate_notification'];
+    this.PUSHER_SUBSCRIPTIONS['project_' + project_id] = [
+      'github_notification', 
+      'tracker_notification', 
+      'climate_notification',
+      'travis_notification'];
     this._super();
   },
   PUSHER_SUBSCRIPTIONS: {
@@ -94,9 +99,18 @@ App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
     console.log(data);
     this.set('climateStats', data);
   },
+  updateTravis: function(data) {
+    console.log(data);
+    var travis = $('.travis'); 
+    var travisClass = data.status;
+    console.log(data.status);
+    $(travis).removeClass('failing').removeClass('passing').addClass(travisClass);
+    this.set('buildStatus', data.status);
+  },
   createHubNotification: function(data) {
     console.log(data);
     data.tinyHash = data.tiny_hash;
+    data.repoName = data.repo_name;
     data.creationDate = data.creation_date;
     var ghNoNotificationsNotice = $('.github.no-notifications');
     var that = this;
@@ -157,7 +171,8 @@ App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
   actions: {
     githubNotification: function(data) { this.createHubNotification(data.data.commit); },
     trackerNotification: function(data) { this.createTrackerNotification(data.data.tracker_event); },
-    climateNotification: function(data) { this.updateClimate(data.data); }
+    climateNotification: function(data) { this.updateClimate(data.data); },
+    travisNotification: function(data) { this.updateTravis(data.data); }
   },
 
   notificationsUpdated: function() {
@@ -276,6 +291,7 @@ App.GHNotification = DS.Model.extend({
   message      : DS.attr(),
   creationDate : DS.attr(),
   tinyHash     : DS.attr(),
+  repoName     : DS.attr(),
   elementId: function() {
     return "gh-" + this.get('id');
   }.property('id')
