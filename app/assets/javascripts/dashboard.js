@@ -81,7 +81,7 @@ App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
   init: function() {
     var pieces = window.location.pathname.split('/'),
         project_id = pieces[ pieces.length -1 ];
-    this.PUSHER_SUBSCRIPTIONS['project_' + project_id] = ['github_notification'];
+    this.PUSHER_SUBSCRIPTIONS['project_' + project_id] = ['github_notification', 'tracker_notification'];
     this._super();
   },
   PUSHER_SUBSCRIPTIONS: {
@@ -96,33 +96,45 @@ App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
   },
   createTrackerNotification: function(data) {
     console.log(data);
+    data.creationDate = data.creation_date;
+    data.changeType = data.change_type;
+    data.storyId = data.story_id;
+    data.url = data.story_url;
+    data.initials = data.user_initials;
+    data.userName = data.user_name;
+    data.name = data.story_title;
+
     this.store.createRecord('TrackerNotification', data);
   },
   sortedHubNotifications: Ember.computed.sort('hubNotifications', function(a, b) {
     var firstId = parseInt(a.id, 10),
         secondId = parseInt(b.id, 10);
-    if (firstId > secondId) {
-      return -1;
+    if (a && b ) {
+      if (firstId > secondId) {
+        return -1;
+      }
+      if (firstId < secondId) {
+        return 1;
+      }
+      return 0;
     }
-    if (firstId < secondId) {
-      return 1;
-    }
-    return 0;
   }),
   sortedTrackerNotifications: Ember.computed.sort('trackerNotifications', function(a, b) {
     var firstId = parseInt(a.id, 10),
         secondId = parseInt(b.id, 10);
-    if (firstId > secondId) {
-      return -1;
+    if (a && b ) {
+      if (firstId > secondId) {
+        return -1;
+      }
+      if (firstId < secondId) {
+        return 1;
+      }
+      return 0;
     }
-    if (firstId < secondId) {
-      return 1;
-    }
-    return 0;
   }),
   actions: {
     githubNotification: function(data) { this.createHubNotification(data.data.commit); },
-    trackerNotification: function(data) { this.createTrackerNotification(data); }
+    trackerNotification: function(data) { this.createTrackerNotification(data.data.tracker_event); }
   },
 
   notificationsUpdated: function() {
@@ -139,10 +151,10 @@ App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
           }, 1);
         });
       }
-      if (ghNotifications.length > 9) {
+      if (ghNotifications.length > 12) {
         ghNotifications.last().fadeOut().remove();
       }
-      if (ptNotifications.length > 9) {
+      if (ptNotifications.length > 12) {
         ptNotifications.last().fadeOut().remove();
       }
     });
@@ -152,7 +164,7 @@ App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
 
 App.UserAvatarComponent = Ember.Component.extend({
   avatarUrl: function() {
-    var email = this.get('email'),
+    var email = this.get('email').toLowerCase();
         hash = hex_md5(email),
         size = 65;
     return 'http://www.gravatar.com/avatar/' + hash + '?s=' + size;
@@ -196,24 +208,24 @@ App.GHNotification = DS.Model.extend({
 });
 
 
-App.GHNotification.FIXTURES = [
-  {
-    id: 1,
-    name: 'Tyler Long',
-    email: 'tyler.stephen.long@gmail.com',
-    message: 'first commit, yo!',
-    tinyHash: '2bn8ic',
-    creationDate: '1390377322000'
-  },
-  {
-    id: 2,
-    name: 'Nathaniel Watts',
-    email: 'reg@nathanielwatts.com',
-    message: 'gotta love the sunshine!',
-    tinyHash: '2bn8ic',
-    creationDate: '1390377708000'
-  }
-];
+App.GHNotification.FIXTURES = [];
+//  {
+//    id: 1,
+//    name: 'Tyler Long',
+//    email: 'tyler.stephen.long@gmail.com',
+//    message: 'first commit, yo!',
+//    tinyHash: '2bn8ic',
+//    creationDate: '1390377322000'
+//  },
+//  {
+//    id: 2,
+//    name: 'Nathaniel Watts',
+//    email: 'reg@nathanielwatts.com',
+//    message: 'gotta love the sunshine!',
+//    tinyHash: '2bn8ic',
+//    creationDate: '1390377708000'
+//  }
+//];
 
 App.TrackerNotification = DS.Model.extend({
   changeType   : DS.attr(),
@@ -224,49 +236,53 @@ App.TrackerNotification = DS.Model.extend({
   projectId    : DS.attr(),
   projectName  : DS.attr(),
   url          : DS.attr(),
+  storyId      : DS.attr(),
   creationDate : DS.attr(),
   displayUrl   : function() {
     return this.get('url').replace('http://www.pivotaltracker.com/', '');
   }.property('url')
 });
 
-App.TrackerNotification.FIXTURES = [
-  {
-    id: 1,
-    changeType: 'create',
-    kind: 'bug',
-    userName: 'Tyler Long',
-    name: 'This is a test story.',
-    initials: 'TL',
-    projectId: '100',
-    projectName: 'The Board of Agility',
-    url: 'http://www.pivotaltracker.com/story/show/64265964',
-    creationDate: '1390377322000'
-  },
-  {
-    id: 2,
-    changeType: 'create',
-    kind: 'story',
-    userName: 'Kevin Powell',
-    name: 'This is a test story.',
-    initials: 'KP',
-    projectId: '100',
-    projectName: 'The Board of Agility',
-    url: 'http://www.pivotaltracker.com/story/show/64265964',
-    creationDate: '1390377322000'
-  },
-  {
-    id: 3,
-    changeType: 'finish',
-    kind: 'chore',
-    userName: 'Simon Taranto',
-    name: 'This is a test story.',
-    initials: 'KP',
-    projectId: '100',
-    projectName: 'The Board of Agility',
-    url: 'http://www.pivotaltracker.com/story/show/64265964',
-    creationDate: '1390377322000'
-  },
-];
+App.TrackerNotification.FIXTURES = [];
+//  {
+//    id: 1,
+//    changeType: 'create',
+//    kind: 'bug',
+//    userName: 'Tyler Long',
+//    name: 'This is a test story.',
+//    initials: 'TL',
+//    projectId: '100',
+//    storyId: '1380903',
+//    projectName: 'The Board of Agility',
+//    url: 'http://www.pivotaltracker.com/story/show/64265964',
+//    creationDate: '1390377322000'
+//  },
+//  {
+//    id: 2,
+//    changeType: 'create',
+//    kind: 'story',
+//    userName: 'Kevin Powell',
+//    name: 'This is a test story.',
+//    initials: 'KP',
+//    storyId: '1380903',
+//    projectId: '100',
+//    projectName: 'The Board of Agility',
+//    url: 'http://www.pivotaltracker.com/story/show/64265964',
+//    creationDate: '1390377322000'
+//  },
+//  {
+//    id: 3,
+//    changeType: 'finish',
+//    kind: 'chore',
+//    userName: 'Simon Taranto',
+//    name: 'This is a test story.',
+//    initials: 'KP',
+//    storyId: '1380903',
+//    projectId: '100',
+//    projectName: 'The Board of Agility',
+//    url: 'http://www.pivotaltracker.com/story/show/64265964',
+//    creationDate: '1390377322000'
+//  },
+//];
 
 

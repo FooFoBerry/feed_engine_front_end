@@ -23,12 +23,23 @@
       {{github-feed notifications=sortedHubNotifications}}
       {{travis-climate-feed}}
     </div>
+    <div class="footer">
+      <div class="project-name">
+        <h2><%= @project.name %></h2>
+      </div>
+      <div class="aggregate-stats">
+      </div>
+    </div>
   </script>
 
   <script type="text/x-handlebars" id="components/tracker-feed">
     <div class="tracker data-column four columns">
       {{#each item in notifications}}
         {{tracker-notification notification=item}}
+      {{else}}
+        <div class="no-notifications">
+          <h3>You don't have any Tracker notifications yet.</h3>
+        </div>
       {{/each}}
     </div>
   </script>
@@ -48,6 +59,10 @@
     <div class="github data-column four columns">
       {{#each item in notifications}}
         {{github-notification notification=item}}
+      {{else}}
+        <div class="no-notifications">
+          <h3>You don't have any GitHub notifications yet.</h3>
+        </div>
       {{/each}}
     </div>
   </script>
@@ -72,7 +87,7 @@
               {{ notification.changeType }} {{ notification.kind }}
             </span>
             <span class="hash">
-              {{ notification.displayUrl }}
+              {{ notification.storyId }}
             </span>
             <div class="code-change">
               <span class="additions">

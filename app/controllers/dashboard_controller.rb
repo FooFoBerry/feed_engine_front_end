@@ -3,6 +3,7 @@ class DashboardController < ApplicationController
   layout 'dashboard'
 
   def index
-    @id = 5;
+    data = { "name" => "FooFoBerry" }
+    @project = Project.new(data)
   end
 end
