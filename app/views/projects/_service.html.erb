@@ -1,9 +1,32 @@
 <div class="service-wrap content-wrap" 
      id='<%= "project-#{project['id']}-services" %>'>
   <h2><%= project['name'] %></h2>
+
   <div class="tracker service">
     <h4>Pivotal Tracker</h4>
+    <div class='<%= "project-#{project['id']}-trackers" %>'>
+      <% project['tracker_projects'].each do |tracker| %>
+        <div class='repo' id='<%= "#{tracker['id']}-tracker" %>'>
+          <span class="tracker-url">
+            <%= tracker['pt_project_id'] %>
+          </span>
+          <a href="#" class="remove">
+            remove
+          </a>
+        </div>
+      <% end %>
+    </div>
+    <div class="tracker-form service-form">
+      <form>
+        <input type="text" placeholder="Tracker Project ID">
+        <button class="submit-add-tracker ladda-button" data-style="expand-left">
+          <span class="ladda-label">Add Tracker</span>
+          <span class="ladda-spinner"></span>
+        </button>
+      </form>
+    </div>
   </div>
+
   <div class="github service">
     <h4>GitHub</h4>
     <div class='<%= "project-#{project['id']}-repos" %>'>
@@ -28,6 +51,7 @@
       </form>
     </div>
   </div>
+
   <div class="travis service">
     <h4>Travis CI</h4>
   </div>

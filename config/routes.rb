@@ -10,6 +10,7 @@ FeedEngineFrontEnd::Application.routes.draw do
 
     resources :projects, :except => [:show]
     resources :repos, :only => [:create]
+    resources :tracker_projects, :only => [:create]
     get 'projects/:id', :to => 'dashboard#index', :as => :project_dashboard
 
   end
