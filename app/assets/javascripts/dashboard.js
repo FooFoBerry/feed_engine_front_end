@@ -61,8 +61,7 @@ App.IndexRoute = Ember.Route.extend({
   setupController: function(controller, model) {
     controller.set('hubNotifications', model.ghNotifications);
     controller.set('trackerNotifications', model.ptNotifications);
-    controller.set('climateStats', [{stat: 'current', gpa: "Loading..."}, {stat: 'difference', gpa: 0.0},
-]);
+    controller.set('climateStats', [{ stat: "current", gpa: "Loading..."}]);
   },
   model: function() {
     return Em.RSVP.hash({
@@ -228,7 +227,7 @@ App.ClimateChartComponent = Ember.Component.extend({
   didInsertElement: function() {
     this.drawClimate();
   },
-  
+
   drawClimate: function(){
     var color = this.get('color');
     var width = this.get('width');
@@ -236,15 +235,15 @@ App.ClimateChartComponent = Ember.Component.extend({
     var stats = this.get('stats');
     var radius = Math.min(width, height) / 2;
     var gpa = $('.gpa');
-  
+
     var arc = d3.svg.arc()
       .outerRadius(radius)
       .innerRadius(radius-2);
-  
+
     var pie = d3.layout.pie()
         .sort(null)
         .value(function(d) { return d.gpa; });
-  
+
     var id = this.$().attr('id');
     var svg = d3.select("#"+id)
         .attr("width", width)
@@ -260,7 +259,7 @@ App.ClimateChartComponent = Ember.Component.extend({
     g.append("path")
       .attr("d", arc)
       .style("fill", function(d, i) { return color[i]; });
-    
+
     $(gpa).html(stats[0].gpa);
 
     },
