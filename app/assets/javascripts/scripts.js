@@ -148,7 +148,7 @@ $('body').on('click', '.submit-add-tracker', function(event) {
       tracker_id = input.val(),
       post_url = '/dashboard/tracker_projects?tracker[pt_project_id]=' + tracker_id + '&tracker[project_id]=' + project_id,
       trackers = $('.project-' + project_id + '-trackers'),
-      repoTemplate = $('#repo-template'),
+      trackerTemplate = $('#tracker-template'),
       l = Ladda.create(this);
 
   console.log(project_id);
@@ -164,8 +164,8 @@ $('body').on('click', '.submit-add-tracker', function(event) {
       $(that).delay(2000).queue(function(next) {
         l.stop();
         $(that).html('Success!').delay(500).queue(function(next) {
-          repos.append(
-            Mustache.to_html(repoTemplate.html(), data)
+          trackers.append(
+            Mustache.to_html(trackerTemplate.html(), data)
           );
           next();
         });

@@ -1,12 +1,17 @@
 class Tracker
   def self.create(params)
-    binding.pry
-    status, tracker_data = tracker_api.create_with({ :tracker_project => params })
+    project_id = params[:project_id]
+    pt_project_id = params[:pt_project_id]
+    params = { 
+      :tracker_project => { :pt_project_id => pt_project_id },
+      :project_id => project_id
+    }
+    status, tracker_data = tracker_api.create_with(params)
     [status, new(tracker_data)]
   end
 
   def self.tracker_api
-    foofo_api::Tracker.new
+    foofo_api::TrackerProject.new
   end
 
   def self.foofo_api
