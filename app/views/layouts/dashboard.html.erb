@@ -4,14 +4,11 @@
 <meta charset="utf-8">
 <title>Ember Starter Kit</title>
   <%= stylesheet_link_tag    "dashboard", media: "all" %>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="http://js.pusher.com/2.1/pusher.min.js"></script>
   <%= javascript_include_tag "dashboard" %>
 </head>
 <body>
-
-  <script>
-    window.project_id = <%= @id %>;
-  </script>
 
   <script type="text/x-handlebars">
     {{outlet}}
@@ -21,7 +18,14 @@
     <div class="row full">
       {{tracker-feed notifications=sortedTrackerNotifications}}
       {{github-feed notifications=sortedHubNotifications}}
-      {{travis-climate-feed}}
+      {{travis-climate-feed stats=climateStats}}
+    </div>
+    <div class="footer">
+      <div class="project-name">
+        <h2><%= @project.name %></h2>
+      </div>
+      <div class="aggregate-stats">
+      </div>
     </div>
   </script>
 
@@ -29,6 +33,10 @@
     <div class="tracker data-column four columns">
       {{#each item in notifications}}
         {{tracker-notification notification=item}}
+      {{else}}
+        <div class="no-notifications tracker">
+          <h3>You don't have any Tracker notifications yet.</h3>
+        </div>
       {{/each}}
     </div>
   </script>
@@ -36,7 +44,13 @@
   <script type="text/x-handlebars" id="components/travis-climate-feed">
     <div class="climate-travis data-column four columns">
       <div class="climate">
-        Climate
+        <div class="climate-data">
+          {{climate-chart width=350 height=350 stats=stats}}
+          <div class="climate-gpa">
+            <span class="gpa">Loading...</span><br>
+            <span class="label">GPA</span>
+          </div>
+        </div>
       </div>
       <div class="travis">
         Travis
@@ -48,6 +62,10 @@
     <div class="github data-column four columns">
       {{#each item in notifications}}
         {{github-notification notification=item}}
+      {{else}}
+        <div class="no-notifications github">
+          <h3>You don't have any GitHub notifications yet.</h3>
+        </div>
       {{/each}}
     </div>
   </script>
@@ -72,7 +90,7 @@
               {{ notification.changeType }} {{ notification.kind }}
             </span>
             <span class="hash">
-              {{ notification.displayUrl }}
+              {{ notification.storyId }}
             </span>
             <div class="code-change">
               <span class="additions">
