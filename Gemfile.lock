@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/FooFoBerry/foofoberry.git
-  revision: 6090b36f9886aad782517b40a984350be44674b7
+  revision: 91d025c89de683088a1c183337f79224b7c6c5bb
   specs:
-    foofoberry (0.0.8)
+    foofoberry (0.1.2)
       faraday
       json
 
@@ -60,7 +60,7 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     columnize (0.3.6)
-    coolline (0.4.2)
+    coolline (0.4.3)
     coveralls (0.7.0)
       multi_json (~> 1.3)
       rest-client
