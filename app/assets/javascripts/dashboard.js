@@ -110,6 +110,7 @@ App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
   createHubNotification: function(data) {
     console.log(data);
     data.tinyHash = data.tiny_hash;
+    data.repoName = data.repo_name;
     data.creationDate = data.creation_date;
     var ghNoNotificationsNotice = $('.github.no-notifications');
     var that = this;
@@ -290,6 +291,7 @@ App.GHNotification = DS.Model.extend({
   message      : DS.attr(),
   creationDate : DS.attr(),
   tinyHash     : DS.attr(),
+  repoName     : DS.attr(),
   elementId: function() {
     return "gh-" + this.get('id');
   }.property('id')
