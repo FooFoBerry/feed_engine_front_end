@@ -1,7 +1,7 @@
 require "spec_helper"
 
 describe LogOutController do 
-  before :each do 
+  before :each do
     cookies.signed[:uid]     = 123
     cookies.signed[:user_id] = 321
     cookies.signed[:user_name] = "foobers"

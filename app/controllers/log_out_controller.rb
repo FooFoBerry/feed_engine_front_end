@@ -4,7 +4,7 @@ class LogOutController < ApplicationController
     cookies.delete :uid
     cookies.delete :user_id
     cookies.delete :user_name
-    redirect_to "/"
+    redirect_to "#{request.base_url}/"
   end
 
 end

@@ -5,7 +5,7 @@
       <header class="codrops-header">
         <h1>
           FooFoBerry
-          <span>Hello, <%= cookies.signed[:user_name] %> <a href="#">logout</a></span>
+          <span>Hello, <%= cookies.signed[:user_name] %> <%= link_to 'logout', log_out_index_path, method: :post %></span>
         </h1>
       </header>
       <div class="main clearfix">
