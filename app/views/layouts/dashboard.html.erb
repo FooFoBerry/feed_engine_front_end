@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <title>Ember Starter Kit</title>
   <%= stylesheet_link_tag    "dashboard", media: "all" %>
+  <script src="http://d3js.org/d3.v3.min.js"></script>
   <script src="http://js.pusher.com/2.1/pusher.min.js"></script>
   <%= javascript_include_tag "dashboard" %>
 </head>
@@ -17,7 +18,7 @@
     <div class="row full">
       {{tracker-feed notifications=sortedTrackerNotifications}}
       {{github-feed notifications=sortedHubNotifications}}
-      {{travis-climate-feed}}
+      {{travis-climate-feed stats=climateStats}}
     </div>
     <div class="footer">
       <div class="project-name">
@@ -43,7 +44,13 @@
   <script type="text/x-handlebars" id="components/travis-climate-feed">
     <div class="climate-travis data-column four columns">
       <div class="climate">
-        Climate
+        <div class="climate-data">
+          {{climate-chart width=350 height=350 stats=stats}}
+          <div class="climate-gpa">
+            <span class="gpa">Loading...</span><br>
+            <span class="label">GPA</span>
+          </div>
+        </div>
       </div>
       <div class="travis">
         Travis

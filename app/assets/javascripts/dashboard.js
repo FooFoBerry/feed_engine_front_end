@@ -61,6 +61,8 @@ App.IndexRoute = Ember.Route.extend({
   setupController: function(controller, model) {
     controller.set('hubNotifications', model.ghNotifications);
     controller.set('trackerNotifications', model.ptNotifications);
+    controller.set('climateStats', [{stat: 'current', gpa: "Loading..."}, {stat: 'difference', gpa: 0.0},
+]);
   },
   model: function() {
     return Em.RSVP.hash({
@@ -73,6 +75,7 @@ App.IndexRoute = Ember.Route.extend({
 App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
   hubNotifications: [],
   trackerNotifications: [],
+  climateStats: [],
   project_id: function() {
     var pieces = window.location.pathname.split('/'),
         project_id = pieces[ pieces.length -1 ];
@@ -81,12 +84,16 @@ App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
   init: function() {
     var pieces = window.location.pathname.split('/'),
         project_id = pieces[ pieces.length -1 ];
-    this.PUSHER_SUBSCRIPTIONS['project_' + project_id] = ['github_notification', 'tracker_notification'];
+    this.PUSHER_SUBSCRIPTIONS['project_' + project_id] = ['github_notification', 'tracker_notification', 'climate_notification'];
     this._super();
   },
   PUSHER_SUBSCRIPTIONS: {
     activity_channel: ['new_idea'],
     github_notification: ['new_notification']
+  },
+  updateClimate: function(data) {
+    console.log(data);
+    this.set('climateStats', data);
   },
   createHubNotification: function(data) {
     console.log(data);
@@ -150,7 +157,8 @@ App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
   }),
   actions: {
     githubNotification: function(data) { this.createHubNotification(data.data.commit); },
-    trackerNotification: function(data) { this.createTrackerNotification(data.data.tracker_event); }
+    trackerNotification: function(data) { this.createTrackerNotification(data.data.tracker_event); },
+    climateNotification: function(data) { this.updateClimate(data.data); }
   },
 
   notificationsUpdated: function() {
@@ -211,6 +219,56 @@ App.TimeStampComponent = Ember.Component.extend({
     clearInterval( this._timer );
   }.on( 'willDestroyElement' )
 
+});
+
+App.ClimateChartComponent = Ember.Component.extend({
+  tagName: 'svg',
+  classNames: 'climate-chart',
+  color: ["#2b96ce", "#fff176"],
+  didInsertElement: function() {
+    this.drawClimate();
+  },
+  
+  drawClimate: function(){
+    var color = this.get('color');
+    var width = this.get('width');
+    var height = this.get('height');
+    var stats = this.get('stats');
+    var radius = Math.min(width, height) / 2;
+    var gpa = $('.gpa');
+  
+    var arc = d3.svg.arc()
+      .outerRadius(radius)
+      .innerRadius(radius-2);
+  
+    var pie = d3.layout.pie()
+        .sort(null)
+        .value(function(d) { return d.gpa; });
+  
+    var id = this.$().attr('id');
+    var svg = d3.select("#"+id)
+        .attr("width", width)
+        .attr("height", height)
+        .append("g")
+        .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+    var g = svg.selectAll(".arc")
+      .data(pie(stats))
+       .enter().append("g")
+      .attr("class", "arc");
+
+    g.append("path")
+      .attr("d", arc)
+      .style("fill", function(d, i) { return color[i]; });
+    
+    $(gpa).html(stats[0].gpa);
+
+    },
+    update: function() {
+      //if (this.get('isLoaded')) {
+      this.drawClimate();
+      //}
+    }.observes('stats')
 });
 
 App.GHNotification = DS.Model.extend({
