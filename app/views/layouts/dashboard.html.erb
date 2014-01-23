@@ -9,10 +9,6 @@
 </head>
 <body>
 
-  <script>
-    window.project_id = <%= @id %>;
-  </script>
-
   <script type="text/x-handlebars">
     {{outlet}}
   </script>
@@ -37,7 +33,7 @@
       {{#each item in notifications}}
         {{tracker-notification notification=item}}
       {{else}}
-        <div class="no-notifications">
+        <div class="no-notifications tracker">
           <h3>You don't have any Tracker notifications yet.</h3>
         </div>
       {{/each}}
@@ -60,7 +56,7 @@
       {{#each item in notifications}}
         {{github-notification notification=item}}
       {{else}}
-        <div class="no-notifications">
+        <div class="no-notifications github">
           <h3>You don't have any GitHub notifications yet.</h3>
         </div>
       {{/each}}

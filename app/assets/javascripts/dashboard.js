@@ -92,7 +92,15 @@ App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
     console.log(data);
     data.tinyHash = data.tiny_hash;
     data.creationDate = data.creation_date;
-    this.store.createRecord('GHNotification', data);
+    var ghNoNotificationsNotice = $('.github.no-notifications');
+    var that = this;
+    if (ghNoNotificationsNotice.length > 0) {
+      $(ghNoNotificationsNotice).fadeOut(400, function() {
+        that.store.createRecord('GHNotification', data);
+      });
+    } else {
+      that.store.createRecord('GHNotification', data);
+    }
   },
   createTrackerNotification: function(data) {
     console.log(data);
@@ -103,8 +111,16 @@ App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
     data.initials = data.user_initials;
     data.userName = data.user_name;
     data.name = data.story_title;
+    var ptNoNotificationsNotice = $('.tracker.no-notifications');
+    var that = this;
+    if (ptNoNotificationsNotice.length > 0) {
+      $(ptNoNotificationsNotice).fadeOut(400, function() {
+        that.store.createRecord('TrackerNotification', data);
+      });
+    } else {
+      that.store.createRecord('TrackerNotification', data);
+    }
 
-    this.store.createRecord('TrackerNotification', data);
   },
   sortedHubNotifications: Ember.computed.sort('hubNotifications', function(a, b) {
     var firstId = parseInt(a.id, 10),
@@ -142,6 +158,7 @@ App.IndexController = Ember.ObjectController.extend(EmberPusher.Bindings, {
       var flatNotifications = $('.notification.flat');
       var ghNotifications = $('.github-notification');
       var ptNotifications = $('.tracker-notification');
+      var ptNoNotificationsNotice = $('.tracker.no-notifications');
 
       if (flatNotifications) {
         $.each(flatNotifications, function(index, notification) {
