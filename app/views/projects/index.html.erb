@@ -80,6 +80,17 @@
     <h2>{{name}}</h2>
     <div class="tracker service">
       <h4>Pivotal Tracker</h4>
+      <div class='project-{{id}}-trackers'>
+      </div>
+      <div class="tracker-form service-form">
+        <form>
+          <input type="text" placeholder="Tracker Project ID">
+          <button class="submit-add-tracker ladda-button" data-style="expand-left">
+            <span class="ladda-label">Add Tracker</span>
+            <span class="ladda-spinner"></span>
+          </button>
+        </form>
+      </div>
     </div>
     <div class="github service">
       <h4>GitHub</h4>
