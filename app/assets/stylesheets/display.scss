@@ -1,5 +1,6 @@
 @import url("http://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic|PT+Sans+Narrow:400,700|PT+Sans+Caption:400,700");
 @import url("http://fonts.googleapis.com/css?family=Open+Sans:700italic");
+@import url("http://fonts.googleapis.com/css?family=Oswald:400,700,300");
 
 ///
 //font-family: 'PT Sans', sans-serif;
@@ -222,6 +223,7 @@ body {
 
 .climate {
   position: absolute;
+  top: 0;
   width: 100%;
   background: image-url('logo-climate.png') no-repeat right -7px;
 }
@@ -247,3 +249,46 @@ body {
   }
 }
 
+.travis {
+  position: absolute;
+  width: 100%;
+  top: 50%;
+  height: 45%;
+  background: image-url('logo-travis.png') no-repeat right 90%;
+  border-top: solid 5px #012530;
+}
+
+.travis.failing {
+  background-color: red;
+  background-image: none;
+  .label {
+    color: #01242f;
+  }
+  .status {
+    color: #fafafa;
+  }
+}
+
+.travis.passing {
+  .status {
+    color: #2b96ce;
+  }
+}
+
+.travis-data {
+  padding-top: 80px;
+  font-family: 'Oswald', sans-serif;
+  .label {
+    font-family: 'Oswald', sans-serif;
+    color: #fafafa;
+    font-size: 34px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+  .status {
+    font-family: 'Oswald', sans-serif;
+    font-size: 127px;
+    color: #fafafa;
+    text-transform: uppercase;
+  }
+}
