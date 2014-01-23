@@ -4,5 +4,12 @@ FeedEngineFrontEnd::Application.routes.draw do
     resources :projects, :except => [:show]
     resources :repos, :only => [:create]
     get 'projects/:id', :to => 'dashboard#index', :as => :project_dashboard
+   
+    resources :log_out do
+      collection do
+        post :destroy
+      end
+    end
+
   end
 end
