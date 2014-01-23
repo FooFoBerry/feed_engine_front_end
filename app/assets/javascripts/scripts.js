@@ -139,3 +139,39 @@ $('body').on('click', '.submit-add-repo', function(event) {
   }
 });
 
+// create a tracker
+$('body').on('click', '.submit-add-tracker', function(event) {
+  event.preventDefault();
+  var input = $(this).siblings('input'),
+      that = this,
+      project_id = $(this).parents('.service-wrap').attr('id').split('-')[1],
+      tracker_id = input.val(),
+      post_url = '/dashboard/tracker_projects?tracker[pt_project_id]=' + tracker_id + '&tracker[project_id]=' + project_id,
+      trackers = $('.project-' + project_id + '-trackers'),
+      repoTemplate = $('#repo-template'),
+      l = Ladda.create(this);
+
+  console.log(project_id);
+  console.log(tracker_id);
+  console.log(trackers);
+
+  if (tracker_id.length > 0) {
+    l.start();
+    $.post(post_url, function( data ) {
+
+      console.log(data);
+
+      $(that).delay(2000).queue(function(next) {
+        l.stop();
+        $(that).html('Success!').delay(500).queue(function(next) {
+          repos.append(
+            Mustache.to_html(repoTemplate.html(), data)
+          );
+          next();
+        });
+        next();
+      });
+    });
+  }
+});
+
